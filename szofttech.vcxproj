@@ -129,11 +129,17 @@
   <ItemGroup>
     <ClCompile Include="adminisztrator.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="rang.cpp" />
     <ClCompile Include="rangtipus.cpp" />
+    <ClCompile Include="szerepkor.cpp" />
+    <ClCompile Include="szerepkortipusok.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adminisztrator.h" />
+    <ClInclude Include="rang.h" />
     <ClInclude Include="rangtipus.h" />
+    <ClInclude Include="szerepkor.h" />
+    <ClInclude Include="szerepkortipusok.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-enum class Rangtipus
+enum class RangTipus
 {
 	Kezdo,
 	Kozepes,
