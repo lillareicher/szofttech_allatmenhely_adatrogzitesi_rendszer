@@ -3,6 +3,8 @@
 
 #include <string>
 #include "szerepkortipusok.h"
+#include "hiba.h"
+
 
 using namespace std;
 

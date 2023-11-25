@@ -33,6 +33,12 @@
     <ClCompile Include="szerepkortipusok.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hiba.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="egyenleg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adminisztrator.h">
@@ -48,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="szerepkortipusok.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hiba.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="egyenleg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #define RANG_H
 
 #include "rangtipus.h"
+#include "hiba.h"
 
 class Rang
 {

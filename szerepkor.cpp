@@ -16,6 +16,6 @@ void Szerepkor::setSzerepkorTipusok(int sz)
 			break;
 		case 3: tipus = SzerepkorTipusok::Alkalmazott;
 			break;
-		default : throw 0;
+		default : throw Hiba();
 	}
 }

@@ -14,7 +14,7 @@ void Rang::setTipus(int t)
 		break;
 	case 2: tipus = tipus = RangTipus::Halado;
 		break;
-	default: throw 0;
+	default: throw Hiba();
 	}
 }
 
