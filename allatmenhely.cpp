@@ -53,7 +53,7 @@ void AllatMenhely::visszaABeRegMenube() {
 }
 
 
-void AllatMenhely::kilepesFunkcio() {
+void AllatMenhely::kilepes() {
     cout << "Kilepes a programbol. Viszontlatasra!" << endl;
     visszaABeRegMenube();
 }

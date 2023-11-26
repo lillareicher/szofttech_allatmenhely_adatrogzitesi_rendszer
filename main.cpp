@@ -1,8 +1,3 @@
-#include "rang.h"
-#include "hiba.h"
-#include "szerepkor.h"
-#include <iostream>
-
 #include <iostream>
 #include <string>
 #include <conio.h>
@@ -12,10 +7,10 @@
 #include "adminisztrator.h"
 #include "idopontok.h"
 #include "regisztraltfelhasznalo.h"
+#include "rang.h"
+#include "hiba.h"
+#include "szerepkor.h"
 
-void kilepes() {
-    cout << "Kilepes a programbol. Viszontlatasra!" << endl;
-}
 
 int main() {
     string felhasznalonev;
@@ -41,7 +36,7 @@ int main() {
             break;
         }
         case '3':
-            kilepes();
+            AllatMenhely::kilepes();
             break;
         default:
             cout << "Hibas valasztas!" << endl;
