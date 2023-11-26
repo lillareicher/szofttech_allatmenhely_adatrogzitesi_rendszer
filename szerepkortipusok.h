@@ -10,3 +10,4 @@ enum class SzerepkorTipusok
 };
 
 #endif
+

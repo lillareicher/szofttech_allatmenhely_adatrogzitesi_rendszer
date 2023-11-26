@@ -7,16 +7,16 @@
 #include <fstream>
 #include <algorithm>
 #include <sstream>
+#include <vector>
 
 class RegisztraltFelhasznalo : public Felhasznalo
 {
     Rang rang;
     Egyenleg felhasznaloEgyenleg;
-
 public:
-    RegisztraltFelhasznalo(Rang _rang, Egyenleg _felhasznaloEgyenleg, int _szerepkorID, const string& _nev, const string& _jelszo, int _ID);
+    RegisztraltFelhasznalo(Rang _rang, Egyenleg _felhasznaloEgyenleg, const string& _nev, const string& _jelszo);
     Egyenleg getFelhasznaloEgyenleg() const;
-    void addFelhasznaloEgyenleg(const Egyenleg &feltoltottEgyenleg);
+    void addFelhasznaloEgyenleg(const Egyenleg& feltoltottEgyenleg);
     static void onkentesSzabadKilistaz();
     static void onkentesIdopontFoglalas(string felhasznalonev);
     static void allatokKilistaz();

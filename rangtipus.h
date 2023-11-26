@@ -6,7 +6,7 @@ using namespace std;
 enum class RangTipus
 {
 	Kezdo,
-	Kozepes,
+	Kozep,
 	Halado
 };
 

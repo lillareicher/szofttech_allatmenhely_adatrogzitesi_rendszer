@@ -1,15 +1,13 @@
 #include "regisztraltfelhasznalo.h"
 #include <iostream>
 
-
-
 Egyenleg RegisztraltFelhasznalo::getFelhasznaloEgyenleg() const
 {
     return felhasznaloEgyenleg;
 }
 
-RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, Egyenleg _felhasznaloEgyenleg, int _szerepkorID, const string& _nev, const string& _jelszo, int _ID)
-    : Felhasznalo(_szerepkorID, _nev, _jelszo, _ID), rang(_rang), felhasznaloEgyenleg(_felhasznaloEgyenleg) {
+RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, Egyenleg _felhasznaloEgyenleg, const string& _nev, const string& _jelszo)
+    : Felhasznalo(_nev, _jelszo), rang(_rang), felhasznaloEgyenleg(_felhasznaloEgyenleg) {
 }
 
 Egyenleg& Egyenleg::operator+=(const Egyenleg& other) {
@@ -19,7 +17,7 @@ Egyenleg& Egyenleg::operator+=(const Egyenleg& other) {
 }
 
 
-void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const Egyenleg &feltoltottEgyenleg) {
+void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const Egyenleg& feltoltottEgyenleg) {
     felhasznaloEgyenleg += feltoltottEgyenleg;
 }
 
@@ -31,7 +29,7 @@ void RegisztraltFelhasznalo::onkentesSzabadKilistaz()
             string felhasznalo, tevekenyseg;
             int ev, honap, nap, ora;
             inputFile >> tevekenyseg >> ev >> honap >> nap >> ora >> felhasznalo;
-            if(felhasznalo == "senki" && tevekenyseg != ""){
+            if (felhasznalo == "senki" && tevekenyseg != "") {
                 cout << "Tevekenyseg: " << tevekenyseg << " ev: " << ev << " honap: " << honap << " nap: " << nap << " ora: " << ora << " lefoglalta eddig: " << felhasznalo << endl;
 
             }
@@ -51,15 +49,15 @@ void RegisztraltFelhasznalo::onkentesIdopontFoglalas(string felhasznalonev)
     ifstream inputFile("Foglalasok.txt");
 
     if (outPutFile.is_open() && inputFile.is_open()) {
-        while(!inputFile.eof()){
+        while (!inputFile.eof()) {
             int _ev, _honap, _nap, _ora;
             string _felhasznalo, _tevekenyseg;
             inputFile >> _tevekenyseg >> _ev >> _honap >> _nap >> _ora >> _felhasznalo;
-            if(_tevekenyseg!=""){
-                if(_ev == ev && _honap == honap && nap == _nap && ora == _ora){
+            if (_tevekenyseg != "") {
+                if (_ev == ev && _honap == honap && nap == _nap && ora == _ora) {
                     outPutFile << _tevekenyseg << " " << _ev << " " << _honap << " " << _nap << " " << _ora << " " << felhasznalonev << endl;
                 }
-                else{
+                else {
                     outPutFile << _tevekenyseg << " " << ev << " " << _honap << " " << _nap << " " << _ora << " " << _felhasznalo << endl;
                 }
             }
@@ -107,7 +105,7 @@ void RegisztraltFelhasznalo::allatSzabadKilistaz()
 
             inputFile >> name >> year >> month >> day >> hour >> foglalt;
             if (name == searchName && !foglalt) {
-             cout << "Szabad idopont talalva '" << searchName << "' -nak/nek: " << year << "-" << month << "-" << day << " " << hour << ":00" << endl;
+                cout << "Szabad idopont talalva '" << searchName << "' -nak/nek: " << year << "-" << month << "-" << day << " " << hour << ":00" << endl;
             }
         }
         inputFile.close();
@@ -126,17 +124,17 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas()
     ofstream outPutFile("temp.txt", ios::app);
 
     if (outPutFile.is_open() && inputFile.is_open()) {
-        while(!inputFile.eof()){
-            string _nev="";
+        while (!inputFile.eof()) {
+            string _nev = "";
             int year, month, day, hour;
             bool foglalt;
             inputFile >> _nev >> year >> month >> day >> hour >> foglalt;
-            if(_nev!=""){
-                if(nev == _nev && year == ev && month == honap && nap == day && ora == hour){
-                 outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << 1 << endl;
+            if (_nev != "") {
+                if (nev == _nev && year == ev && month == honap && nap == day && ora == hour) {
+                    outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << 1 << endl;
                 }
-                else{
-                 outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << foglalt << endl;
+                else {
+                    outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << foglalt << endl;
                 }
             }
 
@@ -146,7 +144,5 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas()
         outPutFile.close();
         rename("temp.txt", "AllatFoglalt.txt");
     }
-        cout << "Idopont lefoglalva." << endl;
-    }
-
-
+    cout << "Idopont lefoglalva." << endl;
+}

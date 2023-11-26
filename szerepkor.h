@@ -2,6 +2,8 @@
 #define SZEREPKOR_H
 
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "szerepkortipusok.h"
 #include "hiba.h"
 
@@ -10,11 +12,13 @@ using namespace std;
 
 class Szerepkor
 {
-	SzerepkorTipusok tipus;
+	static SzerepkorTipusok tipus;
 	int ID;
 public:
 	Szerepkor(int _ID);
-	void setSzerepkorTipusok(int sz);
+	static void setSzerepkorTipusok(int sz);
+	static SzerepkorTipusok getSzerepkorTipusok();
+	static int getSzerepkor(const string& felhasznalonev);
 };
 
 #endif

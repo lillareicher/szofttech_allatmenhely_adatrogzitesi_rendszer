@@ -1,6 +1,8 @@
 #include "rang.h"
 
-Rang::Rang(int _rangID): rangID(_rangID), tipus(RangTipus::Kezdo)
+RangTipus Rang::tipus = RangTipus::Kezdo;
+
+Rang::Rang(int _rangID): rangID(_rangID)
 {
 }
 
@@ -8,11 +10,11 @@ void Rang::setTipus(int t)
 {
 	switch (t)
 	{
-	case 0: tipus = tipus = RangTipus::Kezdo;
+	case 0: tipus = RangTipus::Kezdo;
 		break;
-	case 1: tipus = tipus = RangTipus::Kozepes;
+	case 1: tipus = RangTipus::Kozep;
 		break;
-	case 2: tipus = tipus = RangTipus::Halado;
+	case 2: tipus = RangTipus::Halado;
 		break;
 	default: throw Hiba();
 	}
@@ -28,7 +30,9 @@ int Rang::getRangID() const
 	return rangID;
 }
 
-RangTipus Rang::getRangTipus() const
+RangTipus Rang::getRangTipus()
 {
 	return tipus;
 }
+
+

@@ -7,13 +7,13 @@
 class Rang
 {
     int rangID;
-    RangTipus tipus;
+    static RangTipus tipus;
 public:
     Rang(int _rangID);
-    void setTipus(int t);
+    static void setTipus(int t);
     void setRangID(int r);
     int getRangID() const;
-    RangTipus getRangTipus() const;
+    static RangTipus getRangTipus();
 };
 
 #endif // RANG_H
