@@ -1,6 +1,6 @@
 #include "rang.h"
 
-Rang::Rang(int _rangID): rangID(_rangID), tipus(RangTipus::Kezdo)
+Rang::Rang(int _rangID) : rangID(_rangID), tipus(RangTipus::Kezdo)
 {
 }
 

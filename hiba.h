@@ -1,5 +1,4 @@
-#ifndef HIBA_H
-#define HIBA_H
+#pragma once
 
 #include <iostream>
 
@@ -13,5 +12,3 @@ public:
         return msg.c_str();
     }
 };
-
-#endif

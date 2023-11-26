@@ -1,5 +1,4 @@
-#ifndef RANGTIPUS_H
-#define RANGTIPUS_H
+#pragma once
 
 using namespace std;
 
@@ -9,5 +8,3 @@ enum class RangTipus
 	Kozepes,
 	Halado
 };
-
-#endif
