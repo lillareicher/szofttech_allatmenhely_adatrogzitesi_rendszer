@@ -1,24 +1,63 @@
 #include "regisztraltfelhasznalo.h"
 #include <iostream>
 
-Egyenleg RegisztraltFelhasznalo::getFelhasznaloEgyenleg() const
+unsigned RegisztraltFelhasznalo::felhasznaloEgyenleg = 0;
+
+unsigned RegisztraltFelhasznalo::getFelhasznaloEgyenleg() 
 {
     return felhasznaloEgyenleg;
 }
 
-RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, Egyenleg _felhasznaloEgyenleg, const string& _nev, const string& _jelszo)
-    : Felhasznalo(_nev, _jelszo), rang(_rang), felhasznaloEgyenleg(_felhasznaloEgyenleg) {
+RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, const string& _nev, const string& _jelszo)
+    : Felhasznalo(_nev, _jelszo), rang(_rang){
 }
 
-Egyenleg& Egyenleg::operator+=(const Egyenleg& other) {
+//Egyenleg& Egyenleg::operator+=(unsigned other) {
+//
+//    this->egyenleg += other.egyenleg;
+//    return *this;
+//}
 
-    this->egyenleg += other.egyenleg;
-    return *this;
-}
 
+void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(unsigned feltoltottEgyenleg) 
+{
+    felhasznaloEgyenleg = getFelhasznaloEgyenleg() + feltoltottEgyenleg;
+    ifstream inputFile("felhasznalok.txt");
+    ofstream outPutFile("temp.txt", ios::app);
 
-void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const Egyenleg& feltoltottEgyenleg) {
-    felhasznaloEgyenleg += feltoltottEgyenleg;
+    if (outPutFile.is_open() && inputFile.is_open())
+    {
+        while (!inputFile.eof())
+        {
+            string nev = "";
+            string jelszo;
+            int szerep, rang, egyenleg, menhelye;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye;
+
+            if (feltoltottEgyenleg!=0 && nev!="")
+            {
+                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << felhasznaloEgyenleg << " " << menhelye << endl;
+            }
+            else
+            {
+                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg << " " << menhelye << endl;
+            }
+
+        }
+        inputFile.close();
+        remove("felhasznalok.txt");
+        outPutFile.close();
+        rename("temp.txt", "felhasznalok.txt");
+    }
+
+    /*if (AdletezoFelhasznalo(felhasznalonev))
+    {
+        cout << "Sikeres rangadas." << endl;
+    }
+    else
+    {
+        cout << "Sikertelen rangadas." << endl;
+    }*/
 }
 
 void RegisztraltFelhasznalo::onkentesSzabadKilistaz()

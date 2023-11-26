@@ -12,11 +12,11 @@
 class RegisztraltFelhasznalo : public Felhasznalo
 {
     Rang rang;
-    Egyenleg felhasznaloEgyenleg;
+    static unsigned felhasznaloEgyenleg;
 public:
-    RegisztraltFelhasznalo(Rang _rang, Egyenleg _felhasznaloEgyenleg, const string& _nev, const string& _jelszo);
-    Egyenleg getFelhasznaloEgyenleg() const;
-    void addFelhasznaloEgyenleg(const Egyenleg& feltoltottEgyenleg);
+    RegisztraltFelhasznalo(Rang _rang, const string& _nev, const string& _jelszo);
+    static unsigned getFelhasznaloEgyenleg();
+    static void addFelhasznaloEgyenleg(unsigned feltoltottEgyenleg);
     static void onkentesSzabadKilistaz();
     static void onkentesIdopontFoglalas(string felhasznalonev);
     static void allatokKilistaz();
