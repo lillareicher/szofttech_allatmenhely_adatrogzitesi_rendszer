@@ -1,6 +1,4 @@
-#ifndef EGYENLEG_H
-#define EGYENLEG_H
-
+#pragma once
 
 class Egyenleg
 {
@@ -12,5 +10,3 @@ public:
     void setEgyenleg(unsigned ujegyenleg);
 
 };
-
-#endif // EGYENLEG_H
