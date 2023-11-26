@@ -13,6 +13,9 @@
 #include "idopontok.h"
 #include "regisztraltfelhasznalo.h"
 
+void kilepes() {
+    cout << "Kilepes a programbol. Viszontlatasra!" << endl;
+}
 
 int main() {
     string felhasznalonev;
@@ -20,111 +23,77 @@ int main() {
 
     char valasztas;
 
-    cout << "Valassz egy opciot:\n";
-    cout << "1. Bejelentkezes\n";
-    cout << "2. Regisztracio\n";
-    cin >> valasztas;
+    while (true) {
+        cout << "Valassz egy opciot:\n";
+        cout << "1. Bejelentkezes\n";
+        cout << "2. Regisztracio\n";
+        cout << "3. Kilepes\n";
+        cin >> valasztas;
 
-    cout << "Felhasznalonev: ";
-    cin >> felhasznalonev;
+        cout << endl;
 
-    cout << "Jelszo: ";
+        switch (valasztas) {
+        case '1': {
+            cout << "Felhasznalonev: ";
+            cin >> felhasznalonev;
 
-    char ch;
-    while ((ch = _getch()) != 13) {
-        if (ch == '\b') {
-            if (!jelszo.empty()) {
-                jelszo.pop_back();
-                cout << "\b \b";
+            cout << "Jelszo: ";
+            char ch;
+            while ((ch = _getch()) != 13) {
+                if (ch == '\b') {
+                    if (!jelszo.empty()) {
+                        jelszo.pop_back();
+                        cout << "\b \b";
+                    }
+                }
+                else {
+                    jelszo.push_back(ch);
+                    cout << '*';
+                }
             }
-        }
-        else {
-            jelszo.push_back(ch);
-            cout << '*';
-        }
-    }
 
-    cout << endl;
+            cout << endl;
 
-    /*switch (valasztas)
-    {
-        case 1: valasztas == '1';
-        {
-            if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) 
-            {
+            if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) {
                 cout << "Bejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
             }
-            else
-            {
+            else {
                 cout << "Bejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo." << endl;
             }
             break;
-        } 
-
-        case 2: valasztas == '2';
-        {
+        }
+        case '2': {
             AllatMenhely::regisztracio(felhasznalonev, jelszo);
             break;
         }
-
-        default: 
-        {
+        case '3':
+            kilepes();
+            break;
+        default:
             cout << "Hibas valasztas!" << endl;
             break;
         }
-       
-    }*/
-    
- 
 
-    if (valasztas == '1') {
-        if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) {
-            cout << "Bejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
-        }
-        else {
-            cout << "Bejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo." << endl;
-        }
-    }
-    else if (valasztas == '2') {
-        AllatMenhely::regisztracio(felhasznalonev, jelszo);
-    }
-    else {
-        cout << "Hiba!" << endl;
     }
 
 
 
-    if(AllatMenhely::validBejelentkezes(felhasznalonev, jelszo) || valasztas=='2')
-        { 
+    if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo) || valasztas == '2')
+    {
         switch (Szerepkor::getSzerepkor(felhasznalonev))
         {
-            case 0: Szerepkor::getSzerepkor(felhasznalonev) == 0;
+        case 0: Szerepkor::getSzerepkor(felhasznalonev) == 0;
+        {
+            char valasztas;
+            cout << "\nValasszon az elerheto funckiok kozul: \n";
+            cout << "1. Rangadas\n";
+            cout << "2. Felhasznalok listazasa\n";
+            cout << "3. Felhasznalo torlese\n";
+
+            cin >> valasztas;
+            /*switch (valasztas)
             {
-                char valasztas;
-                cout << "\nValasszon az elerheto funckiok kozul: \n";
-                cout << "1. Rangadas\n";
-                cout << "2. Felhasznalok listazasa\n";
-                cout << "3. Felhasznalo torlese\n";
-                
-                cin >> valasztas;
-                /*switch (valasztas)
-                {
-                    case 1: valasztas == '1';
-                    {
-                        string felhasznalonev;
-                        int ertek;
-                        cout << "Kerem adja meg a felhasznalo nevet: ";
-                        cin >> felhasznalonev;
-                        cout << "Kerem adja meg a megadni kivant rang erteket (0 - kezdo, 1 - kozephalado, 2 - halado): ";
-                        cin >> ertek;
-                        Adminisztrator::rangAdas(felhasznalonev, ertek);
-                    }
-                    case 2: valasztas == '2';
-                    {
-                        cout << "proba" << endl;
-                    }
-                }*/
-                if(valasztas=='1')
+                case 1: valasztas == '1';
                 {
                     string felhasznalonev;
                     int ertek;
@@ -134,49 +103,64 @@ int main() {
                     cin >> ertek;
                     Adminisztrator::rangAdas(felhasznalonev, ertek);
                 }
-                if (valasztas == '2')
+                case 2: valasztas == '2';
                 {
-                    Adminisztrator::felhasznaloListaz();
+                    cout << "proba" << endl;
                 }
-                if (valasztas == '3')
-                {
-                    string felhasznalonev;
-                    cout << "Kerem adja meg a torlesre kerulo felhasznalo nevet: ";
-                    cin >> felhasznalonev;
-                    Adminisztrator::felhasznaloTorles(felhasznalonev);
-                }
+            }*/
+            if (valasztas == '1')
+            {
+                string felhasznalonev;
+                int ertek;
+                cout << "Kerem adja meg a felhasznalo nevet: ";
+                cin >> felhasznalonev;
+                cout << "Kerem adja meg a megadni kivant rang erteket (0 - kezdo, 1 - kozephalado, 2 - halado): ";
+                cin >> ertek;
+                Adminisztrator::rangAdas(felhasznalonev, ertek);
             }
-            break;
+            if (valasztas == '2')
+            {
+                Adminisztrator::felhasznaloListaz();
+            }
+            if (valasztas == '3')
+            {
+                string felhasznalonev;
+                cout << "Kerem adja meg a torlesre kerulo felhasznalo nevet: ";
+                cin >> felhasznalonev;
+                Adminisztrator::felhasznaloTorles(felhasznalonev);
+            }
+        }
+        break;
 
-            case 1: Szerepkor::getSzerepkor(felhasznalonev) == 1;
-            {
-                char valasztas;
-                cout << "\nValasszon az elerheto funckiok kozul: \n";
-                cout << "1. Adomanyozas\n";
-                cout << "2. Virtualis adomanyozas\n";
-                cin >> valasztas;
-            }
-            break; 
-            case 2: Szerepkor::getSzerepkor(felhasznalonev) == 2;
-            {
-                char valasztas;
-                cout << "\nValasszon az elerheto funckiok kozul: \n";
-                cout << "1. Uj idopont hozzadasa\n";
-                cout << "2. Keszlet feltoltese\n";
-                cin >> valasztas;
-            }
-            case 3: Szerepkor::getSzerepkor(felhasznalonev) == 3;
-            {
-                char valasztas;
-                cout << "\nValasszon az elerheto funckiok kozul: \n";
-                cout << "1. Allat adatainak feltoltese\n";
-                cout << "2. Felhasznalo figyelmeztetese\n";
-                cin >> valasztas;
-            }
+        case 1: Szerepkor::getSzerepkor(felhasznalonev) == 1;
+        {
+            char valasztas;
+            cout << "\nValasszon az elerheto funckiok kozul: \n";
+            cout << "1. Adomanyozas\n";
+            cout << "2. Virtualis adomanyozas\n";
+            cin >> valasztas;
+        }
+        break;
+        case 2: Szerepkor::getSzerepkor(felhasznalonev) == 2;
+        {
+            char valasztas;
+            cout << "\nValasszon az elerheto funckiok kozul: \n";
+            cout << "1. Uj idopont hozzadasa\n";
+            cout << "2. Keszlet feltoltese\n";
+            cin >> valasztas;
+        }
+        case 3: Szerepkor::getSzerepkor(felhasznalonev) == 3;
+        {
+            char valasztas;
+            cout << "\nValasszon az elerheto funckiok kozul: \n";
+            cout << "1. Allat adatainak feltoltese\n";
+            cout << "2. Felhasznalo figyelmeztetese\n";
+            cin >> valasztas;
+        }
         }
     }
 
-    
+
 
 
     //Szabad idõpontok kilistázása
