@@ -34,33 +34,7 @@ int main() {
 
         switch (valasztas) {
         case '1': {
-            cout << "Felhasznalonev: ";
-            cin >> felhasznalonev;
-
-            cout << "Jelszo: ";
-            char ch;
-            while ((ch = _getch()) != 13) {
-                if (ch == '\b') {
-                    if (!jelszo.empty()) {
-                        jelszo.pop_back();
-                        cout << "\b \b";
-                    }
-                }
-                else {
-                    jelszo.push_back(ch);
-                    cout << '*';
-                }
-            }
-
-            cout << endl;
-
-            if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) {
-                cout << "Bejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
-            }
-            else {
-                cout << "Bejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo." << endl;
-            }
-            break;
+            AllatMenhely::bejelentkezes();
         }
         case '2': {
             AllatMenhely::regisztracio(felhasznalonev, jelszo);
