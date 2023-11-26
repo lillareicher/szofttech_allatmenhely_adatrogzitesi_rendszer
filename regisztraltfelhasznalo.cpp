@@ -1,12 +1,6 @@
 #include "regisztraltfelhasznalo.h"
 #include <iostream>
-
-unsigned RegisztraltFelhasznalo::felhasznaloEgyenleg = 0;
-
-unsigned RegisztraltFelhasznalo::getFelhasznaloEgyenleg() 
-{
-    return felhasznaloEgyenleg;
-}
+#include "Egyenleg.h"
 
 RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, const string& _nev, const string& _jelszo)
     : Felhasznalo(_nev, _jelszo), rang(_rang){
@@ -19,36 +13,22 @@ RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, const string& _nev, c
 //}
 
 
-void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(unsigned feltoltottEgyenleg) 
+void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const string &felhasznalonev)
 {
-    felhasznaloEgyenleg = getFelhasznaloEgyenleg() + feltoltottEgyenleg;
-    ifstream inputFile("felhasznalok.txt");
-    ofstream outPutFile("temp.txt", ios::app);
-
-    if (outPutFile.is_open() && inputFile.is_open())
-    {
-        while (!inputFile.eof())
-        {
-            string nev = "";
-            string jelszo;
-            int szerep, rang, egyenleg, menhelye;
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye;
-
-            if (feltoltottEgyenleg!=0 && nev!="")
-            {
-                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << felhasznaloEgyenleg << " " << menhelye << endl;
-            }
-            else
-            {
-                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg << " " << menhelye << endl;
-            }
-
-        }
-        inputFile.close();
-        remove("felhasznalok.txt");
-        outPutFile.close();
-        rename("temp.txt", "felhasznalok.txt");
+    int feltoltes;
+    int uj;
+    cout << "Mennyi penzt szeretne feltolteni?";
+    cin >> feltoltes;
+    if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)!=-1){
+    uj = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) + feltoltes;
+    Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, uj);
+    cout << "Sikeres feltoltes";
     }
+    else {
+    cout << "Sikertelen feltoltes";
+    }
+
+
 
     /*if (AdletezoFelhasznalo(felhasznalonev))
     {
@@ -78,7 +58,7 @@ void RegisztraltFelhasznalo::onkentesSzabadKilistaz()
     inputFile.close();
 }
 
-void RegisztraltFelhasznalo::onkentesIdopontFoglalas(string felhasznalonev)
+void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string &felhasznalonev)
 {
     cout << "Melyik idopontot szeretned lefoglalni? Ird be a datumot szokozokkel elvalasztva! ";
     int ev, honap, nap, ora;

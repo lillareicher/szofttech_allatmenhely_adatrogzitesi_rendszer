@@ -2,7 +2,6 @@
 #define REGISZTRALTFELHASZNALO_H
 
 #include "Rang.h"
-#include "Egyenleg.h"
 #include "felhasznalo.h"
 #include <fstream>
 #include <algorithm>
@@ -12,13 +11,11 @@
 class RegisztraltFelhasznalo : public Felhasznalo
 {
     Rang rang;
-    static unsigned felhasznaloEgyenleg;
 public:
     RegisztraltFelhasznalo(Rang _rang, const string& _nev, const string& _jelszo);
-    static unsigned getFelhasznaloEgyenleg();
-    static void addFelhasznaloEgyenleg(unsigned feltoltottEgyenleg);
+    static void addFelhasznaloEgyenleg(const string &felhasznalonev);
     static void onkentesSzabadKilistaz();
-    static void onkentesIdopontFoglalas(string felhasznalonev);
+    static void onkentesIdopontFoglalas(const string& felhasznalonev);
     static void allatokKilistaz();
     static void allatSzabadKilistaz();
     static void allatIdoPontFoglalas();
