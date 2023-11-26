@@ -1,3 +1,8 @@
+#include "rang.h"
+#include "hiba.h"
+#include "szerepkor.h"
+#include <iostream>
+
 #include <iostream>
 #include <string>
 #include <conio.h>
@@ -8,18 +13,17 @@
 #include "idopontok.h"
 #include "regisztraltfelhasznalo.h"
 
-using namespace std;
 
 int main() {
     string felhasznalonev;
     string jelszo;
 
-    char choice;
+    char valasztas;
 
     cout << "Valassz egy opciot:\n";
     cout << "1. Bejelentkezes\n";
     cout << "2. Regisztracio\n";
-    cin >> choice;
+    cin >> valasztas;
 
     cout << "Felhasznalonev: ";
     cin >> felhasznalonev;
@@ -42,7 +46,38 @@ int main() {
 
     cout << endl;
 
-    if (choice == '1') {
+    /*switch (valasztas)
+    {
+        case 1: valasztas == '1';
+        {
+            if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) 
+            {
+                cout << "Bejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
+            }
+            else
+            {
+                cout << "Bejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo." << endl;
+            }
+            break;
+        } 
+
+        case 2: valasztas == '2';
+        {
+            AllatMenhely::regisztracio(felhasznalonev, jelszo);
+            break;
+        }
+
+        default: 
+        {
+            cout << "Hibas valasztas!" << endl;
+            break;
+        }
+       
+    }*/
+    
+ 
+
+    if (valasztas == '1') {
         if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) {
             cout << "Bejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
         }
@@ -50,28 +85,99 @@ int main() {
             cout << "Bejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo." << endl;
         }
     }
-    else if (choice == '2') {
+    else if (valasztas == '2') {
         AllatMenhely::regisztracio(felhasznalonev, jelszo);
     }
     else {
         cout << "Hiba!" << endl;
     }
 
-    //Adminisztrátor felhasználó törlése
-    /*{
-        string filename = "users.txt";
-        int targetId;
 
-        cout << "Irja be a torolni kivant felhasznalo id-jat! ";
-        cin >> targetId;
 
-        if (Adminisztrator::felhasznaloTorles(filename, targetId)) {
-            cout << "Torles sikeres." << endl;
+    if(AllatMenhely::validBejelentkezes(felhasznalonev, jelszo) || valasztas=='2')
+        { 
+        switch (Szerepkor::getSzerepkor(felhasznalonev))
+        {
+            case 0: Szerepkor::getSzerepkor(felhasznalonev) == 0;
+            {
+                char valasztas;
+                cout << "\nValasszon az elerheto funckiok kozul: \n";
+                cout << "1. Rangadas\n";
+                cout << "2. Felhasznalok listazasa\n";
+                cout << "3. Felhasznalo torlese\n";
+                
+                cin >> valasztas;
+                /*switch (valasztas)
+                {
+                    case 1: valasztas == '1';
+                    {
+                        string felhasznalonev;
+                        int ertek;
+                        cout << "Kerem adja meg a felhasznalo nevet: ";
+                        cin >> felhasznalonev;
+                        cout << "Kerem adja meg a megadni kivant rang erteket (0 - kezdo, 1 - kozephalado, 2 - halado): ";
+                        cin >> ertek;
+                        Adminisztrator::rangAdas(felhasznalonev, ertek);
+                    }
+                    case 2: valasztas == '2';
+                    {
+                        cout << "proba" << endl;
+                    }
+                }*/
+                if(valasztas=='1')
+                {
+                    string felhasznalonev;
+                    int ertek;
+                    cout << "Kerem adja meg a felhasznalo nevet: ";
+                    cin >> felhasznalonev;
+                    cout << "Kerem adja meg a megadni kivant rang erteket (0 - kezdo, 1 - kozephalado, 2 - halado): ";
+                    cin >> ertek;
+                    Adminisztrator::rangAdas(felhasznalonev, ertek);
+                }
+                if (valasztas == '2')
+                {
+                    Adminisztrator::felhasznaloListaz();
+                }
+                if (valasztas == '3')
+                {
+                    string felhasznalonev;
+                    cout << "Kerem adja meg a torlesre kerulo felhasznalo nevet: ";
+                    cin >> felhasznalonev;
+                    Adminisztrator::felhasznaloTorles(felhasznalonev);
+                }
+            }
+            break;
+
+            case 1: Szerepkor::getSzerepkor(felhasznalonev) == 1;
+            {
+                char valasztas;
+                cout << "\nValasszon az elerheto funckiok kozul: \n";
+                cout << "1. Adomanyozas\n";
+                cout << "2. Virtualis adomanyozas\n";
+                cin >> valasztas;
+            }
+            break; 
+            case 2: Szerepkor::getSzerepkor(felhasznalonev) == 2;
+            {
+                char valasztas;
+                cout << "\nValasszon az elerheto funckiok kozul: \n";
+                cout << "1. Uj idopont hozzadasa\n";
+                cout << "2. Keszlet feltoltese\n";
+                cin >> valasztas;
+            }
+            case 3: Szerepkor::getSzerepkor(felhasznalonev) == 3;
+            {
+                char valasztas;
+                cout << "\nValasszon az elerheto funckiok kozul: \n";
+                cout << "1. Allat adatainak feltoltese\n";
+                cout << "2. Felhasznalo figyelmeztetese\n";
+                cin >> valasztas;
+            }
         }
-        else {
-            cerr << "Torles sikertelen." << endl;
-        }
-    }*/
+    }
+
+    
+
 
     //Szabad idõpontok kilistázása
     //{
@@ -79,27 +185,27 @@ int main() {
     //}
 
     //Önkéntes idõpontfoglalás 
-    cout << "Valasszon az alabbi lehetosegek kozul:" << endl;
-    cout << "1. Onkentes idopont foglalas" << endl;
-    cout << "2. Kilepes" << endl;
-    cin >> choice;
+    //cout << "Valasszon az alabbi lehetosegek kozul:" << endl;
+    //cout << "1. Onkentes idopont foglalas" << endl;
+    //cout << "2. Kilepes" << endl;
+    //cin >> choice;
 
-    {
-        if (choice == '1') {
-            RegisztraltFelhasznalo regFelhasznalok;
-            Felhasznalo felhasznalo = regFelhasznalok.felhasznaloBeolvasas("users.txt");
+    //{
+    //    if (choice == '1') {
+    //        RegisztraltFelhasznalo regFelhasznalok;
+    //        Felhasznalo felhasznalo = regFelhasznalok.felhasznaloBeolvasas("users.txt");
 
-            RegisztraltFelhasznalo::onkentesIdopontFoglalas(felhasznalo);
-        }
-        else {
-            cout << "Sikertelen." << endl;
-        }
-        if (choice == '2') {
-            //cout << "Kilepes" << endl;
-            return 0;
-        }
+    //        RegisztraltFelhasznalo::onkentesIdopontFoglalas(felhasznalo);
+    //    }
+    //    else {
+    //        cout << "Sikertelen." << endl;
+    //    }
+    //    if (choice == '2') {
+    //        //cout << "Kilepes" << endl;
+    //        return 0;
+    //    }
 
-    }
+    //}
 
     return 0;
 }
