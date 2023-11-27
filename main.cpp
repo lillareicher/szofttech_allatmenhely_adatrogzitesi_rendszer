@@ -58,25 +58,10 @@ int main() {
             cout << "1. Rangadas\n";
             cout << "2. Felhasznalok listazasa\n";
             cout << "3. Felhasznalo torlese\n";
+            cout << "4. Kilepes\n";
 
             cin >> valasztas;
-            /*switch (valasztas)
-            {
-                case 1: valasztas == '1';
-                {
-                    string felhasznalonev;
-                    int ertek;
-                    cout << "Kerem adja meg a felhasznalo nevet: ";
-                    cin >> felhasznalonev;
-                    cout << "Kerem adja meg a megadni kivant rang erteket (0 - kezdo, 1 - kozephalado, 2 - halado): ";
-                    cin >> ertek;
-                    Adminisztrator::rangAdas(felhasznalonev, ertek);
-                }
-                case 2: valasztas == '2';
-                {
-                    cout << "proba" << endl;
-                }
-            }*/
+
             if (valasztas == '1')
             {
                 string felhasznalonev;
@@ -97,6 +82,10 @@ int main() {
                 cout << "Kerem adja meg a torlesre kerulo felhasznalo nevet: ";
                 cin >> felhasznalonev;
                 Adminisztrator::felhasznaloTorles(felhasznalonev);
+            }
+            if (valasztas == '4')
+            {
+                AllatMenhely::kilepes();
             }
         }
         break;
