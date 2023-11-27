@@ -1,6 +1,7 @@
 #include "regisztraltfelhasznalo.h"
 #include <iostream>
 #include "Egyenleg.h"
+#include "kervenyek.h"
 
 RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, const string& _nev, const string& _jelszo)
     : Felhasznalo(_nev, _jelszo), rang(_rang){
@@ -19,7 +20,7 @@ void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const string &felhasznalonev
     int uj;
     cout << "Mennyi penzt szeretne feltolteni?";
     cin >> feltoltes;
-    if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)!=-1){
+    if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)>= 0){
     uj = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) + feltoltes;
     Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, uj);
     cout << "Sikeres feltoltes";
@@ -27,17 +28,6 @@ void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const string &felhasznalonev
     else {
     cout << "Sikertelen feltoltes";
     }
-
-
-
-    /*if (AdletezoFelhasznalo(felhasznalonev))
-    {
-        cout << "Sikeres rangadas." << endl;
-    }
-    else
-    {
-        cout << "Sikertelen rangadas." << endl;
-    }*/
 }
 
 void RegisztraltFelhasznalo::onkentesSzabadKilistaz()
@@ -164,4 +154,22 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas()
         rename("temp.txt", "AllatFoglalt.txt");
     }
     cout << "Idopont lefoglalva." << endl;
+}
+
+void RegisztraltFelhasznalo::kervenyLeadas(const string &felhasznalonev)
+{
+    kervenyek uj("","");
+    ofstream outPutFile("kervenyek.txt", ios::app);
+    cout << "Mi a kerveny targya?: ";
+    cin >> uj.kervenyTargy;
+    cout << "Mi a kerveny szovege? A szokozok helyett alulvonast hasznaljon (_) :";
+    cin >> uj.kerveny;
+
+    if(outPutFile.is_open()){
+            string targy, kerveny, nev;
+            bool elfogadva=0;
+            outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << elfogadva << endl;
+    }
+    outPutFile.close();
+    cout << "Kerveny leadva." << endl;
 }

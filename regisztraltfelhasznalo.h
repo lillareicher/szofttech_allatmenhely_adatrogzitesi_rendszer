@@ -19,6 +19,7 @@ public:
     static void allatokKilistaz();
     static void allatSzabadKilistaz();
     static void allatIdoPontFoglalas();
+    static void kervenyLeadas(const string &felhasznalonev);
 
 };
 
