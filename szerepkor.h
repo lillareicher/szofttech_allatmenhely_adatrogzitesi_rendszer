@@ -13,9 +13,8 @@ using namespace std;
 class Szerepkor
 {
 	static SzerepkorTipusok tipus;
-	int ID;
 public:
-	Szerepkor(int _ID);
+	Szerepkor();
 	static void setSzerepkorTipusok(int sz);
 	static SzerepkorTipusok getSzerepkorTipusok();
 	static int getSzerepkor(const string& felhasznalonev);

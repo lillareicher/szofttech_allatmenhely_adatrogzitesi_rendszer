@@ -1,4 +1,4 @@
-#include <iostream>
+Ôªø#include <iostream>
 #include <fstream>
 #include <string>
 #include <conio.h>
@@ -7,11 +7,11 @@
 
 using namespace std;
 
-// F·jl elÈrÈsi ˙tja, ahol a felhaszn·lÛnevek Ès jelszavak t·rolva vannak
-const char* FILE_PATH = "users.txt";
+// F√°jl el√©r√©si √∫tja, ahol a felhaszn√°l√≥nevek √©s jelszavak t√°rolva vannak
+const char* FILE_PATH = "felhasznalok.txt";
 
-// FunkciÛ a felhaszn·lÛk ellenırzÈsÈre
-bool AllatMenhely:: validBejelentkezes(const string& felhasznalonev, const string& jelszo) {
+// Funkci√≥ a felhaszn√°l√≥k ellen√µrz√©s√©re
+bool AllatMenhely::validBejelentkezes(const string& felhasznalonev, const string& jelszo) {
     ifstream file(FILE_PATH);
 
     if (!file.is_open()) {
@@ -25,47 +25,46 @@ bool AllatMenhely:: validBejelentkezes(const string& felhasznalonev, const strin
     while (file >> storedUsername >> storedPassword) {
         if (storedUsername == felhasznalonev && storedPassword == jelszo) {
             file.close();
-            return true; 
+            return true;
         }
     }
 
     file.close();
-    return false; 
+    return false;
 }
 
-// FunkciÛ a felhaszn·lÛk regisztr·ciÛj·ra
-void AllatMenhely::regisztracio(const string& felhasznalonev, const string& jelszo) {
-    ofstream file(FILE_PATH, ios::app); 
+// Funkci√≥ a felhaszn√°l√≥k regisztr√°ci√≥j√°ra
+void AllatMenhely::regisztracio(const string& felhasznalonev, const string& jelszo) 
+{
+    ofstream file(FILE_PATH, ios::app);
 
     if (!file.is_open()) {
         cerr << "A fajl nem nyithato meg: " << FILE_PATH << endl;
         return;
     }
-
-    file << felhasznalonev << " " << jelszo << endl;
+    
+    file << felhasznalonev << " " << jelszo << " " <<  1 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << endl;
     file.close();
 
-    cout << "Regisztracio sikeres! Udv, " << felhasznalonev << "!" << endl;
-}
-
-void AllatMenhely::visszaABeRegMenube() {
-    cout << "Visszateres a bejelentkezes/regisztracio menube." << endl;
+    cout << "\nRegisztracio sikeres! Udv, " << felhasznalonev << "! Kerem jelentkezzen be!\n" << endl;
 }
 
 
-void AllatMenhely::kilepes() {
-    cout << "Kilepes a programbol. Viszontlatasra!" << endl;
-    visszaABeRegMenube();
+void AllatMenhely::visszaLep()
+{
+
 }
 
-void AllatMenhely::bejelentkezes() {
-    string felhasznalonev;
-    string jelszo;
 
+string AllatMenhely::belepes()
+{
+    string felhasznalonev = "";
+    string jelszo = "";
     cout << "Felhasznalonev: ";
     cin >> felhasznalonev;
 
     cout << "Jelszo: ";
+
     char ch;
     while ((ch = _getch()) != 13) {
         if (ch == '\b') {
@@ -79,40 +78,17 @@ void AllatMenhely::bejelentkezes() {
             cout << '*';
         }
     }
-
-    cout << endl;
-
     if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) {
-        cout << "Bejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
+        cout << "\nBejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
+        return felhasznalonev;
     }
     else {
-        cout << "Bejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo." << endl;
+        cout << "\nBejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo.\n" << endl;
     }
+    return "";
 }
 
-void AllatMenhely::regisztracio() {
-    string felhasznalonev;
-    string jelszo;
 
-    cout << "Felhasznalonev: ";
-    cin >> felhasznalonev;
-
-    cout << "Jelszo: ";
-    char ch;
-    while ((ch = _getch()) != 13) {
-        if (ch == '\b') {
-            if (!jelszo.empty()) {
-                jelszo.pop_back();
-                cout << "\b \b";
-            }
-        }
-        else {
-            jelszo.push_back(ch);
-            cout << '*';
-        }
-    }
-
-    cout << endl;
-
-    AllatMenhely::regisztracio(felhasznalonev, jelszo);
+void AllatMenhely::kijelentkezes() {
+    
 }

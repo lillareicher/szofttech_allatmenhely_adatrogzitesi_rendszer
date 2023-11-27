@@ -1,5 +1,7 @@
 #include "felhasznalo.h"
 
+
+
 Felhasznalo::Felhasznalo(const string& _nev, const string& _jelszo) :
    nev(_nev), jelszo(_jelszo)
 {
@@ -9,7 +11,7 @@ string Felhasznalo::getNev() const {
     return nev;
 }
 
-void Felhasznalo::setNev(string& felh) {
+void Felhasznalo::setNev(const string& felh) {
     nev = felh;
 }
 
@@ -17,7 +19,7 @@ string Felhasznalo::getJelszo() const {
     return jelszo;
 }
 
-void Felhasznalo::setJelszo(string& ujjelszo) {
+void Felhasznalo::setJelszo(const string& ujjelszo) {
     jelszo = ujjelszo;
 }
 
@@ -29,3 +31,4 @@ void Felhasznalo::setFigyelmeztetes(bool f)
 {
     figyelmeztetes = f;
 }
+

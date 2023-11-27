@@ -6,7 +6,8 @@ enum class SzerepkorTipusok
 	Admin,
 	Regisztralt_Felhasznalo,
 	Ugyintezo,
-	Alkalmazott
+	Alkalmazott,
+	Vendeg
 };
 
 #endif

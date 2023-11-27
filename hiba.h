@@ -2,15 +2,18 @@
 #define HIBA_H
 
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
 class Hiba : public exception {
-    string msg = "Rendszerhiba";
+    string leiras = "Hiba!";
+    time_t most = time(0);
+    char *datum= ctime(&most);
 public:
     const char* what() const noexcept
     {
-        return msg.c_str();
+        return leiras.c_str();
     }
 };
 

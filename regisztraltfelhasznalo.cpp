@@ -3,30 +3,35 @@
 #include "Egyenleg.h"
 #include "kervenyek.h"
 
+int RegisztraltFelhasznalo::rangSzamlalo = 0;
+
 RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, const string& _nev, const string& _jelszo)
-    : Felhasznalo(_nev, _jelszo), rang(_rang){
+    : Felhasznalo(_nev, _jelszo), rang(_rang) {
 }
 
-//Egyenleg& Egyenleg::operator+=(unsigned other) {
-//
-//    this->egyenleg += other.egyenleg;
-//    return *this;
-//}
+int RegisztraltFelhasznalo::getRangSzamlalo()
+{
+    return rangSzamlalo;
+}
 
+void RegisztraltFelhasznalo::setRangSzamlalo(int rsz)
+{
+    rangSzamlalo = rsz;
+}
 
-void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const string &felhasznalonev)
+void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const string& felhasznalonev)
 {
     int feltoltes;
     int uj;
     cout << "Mennyi penzt szeretne feltolteni?";
     cin >> feltoltes;
-    if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)>= 0){
-    uj = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) + feltoltes;
-    Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, uj);
-    cout << "Sikeres feltoltes";
+    if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= 0) {
+        uj = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) + feltoltes;
+        Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, uj);
+        cout << "Sikeres feltoltes";
     }
     else {
-    cout << "Sikertelen feltoltes";
+        cout << "Sikertelen feltoltes";
     }
 }
 
@@ -48,9 +53,12 @@ void RegisztraltFelhasznalo::onkentesSzabadKilistaz()
     inputFile.close();
 }
 
-void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string &felhasznalonev)
+void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string& felhasznalonev)
 {
-    cout << "Melyik idopontot szeretned lefoglalni? Ird be a datumot szokozokkel elvalasztva! ";
+    cout << "\nAz elerheto idopontok es tevekenysegek onkenteskedesre: " << endl;
+    onkentesSzabadKilistaz();
+
+    cout << "\nMelyik idopontot szeretned lefoglalni? Ird be a datumot szokozokkel elvalasztva! (ev, honap, nap, ora): ";
     int ev, honap, nap, ora;
     string felhasznalo, tevekenyseg;
     cin >> ev >> honap >> nap >> ora;
@@ -80,10 +88,11 @@ void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string &felhasznalone
     cout << "Idopont lefoglalva." << endl;
 }
 
-
 void RegisztraltFelhasznalo::allatokKilistaz()
 {
     ifstream inputFile("Allatok.txt");
+
+
 
     if (inputFile.is_open()) {
         while (!inputFile.eof()) {
@@ -101,7 +110,7 @@ void RegisztraltFelhasznalo::allatokKilistaz()
 void RegisztraltFelhasznalo::allatSzabadKilistaz()
 {
     string searchName = "";
-    cout << "Melyik allathoz szeretnel idopontot foglalni?";
+    cout << "\nMelyik allathoz szeretne idopontot foglalni?: ";
     cin >> searchName;
     ifstream inputFile("AllatFoglalt.txt");
 
@@ -110,7 +119,7 @@ void RegisztraltFelhasznalo::allatSzabadKilistaz()
             string name;
             int year, month, day, hour;
             bool foglalt;
-            vector<int> numbers;
+            vector<int> numbers; //?
 
             inputFile >> name >> year >> month >> day >> hour >> foglalt;
             if (name == searchName && !foglalt) {
@@ -121,13 +130,17 @@ void RegisztraltFelhasznalo::allatSzabadKilistaz()
     }
 }
 
-
 void RegisztraltFelhasznalo::allatIdoPontFoglalas()
 {
+    cout << "\nA menhelyi allatok listaja: \n";
+    allatokKilistaz();
+
+    allatSzabadKilistaz();
+
     string nev;
     int ev, honap, nap, ora;
 
-    cout << "Ird be az allat nevet, evet, honapot es napot szokozokkel elvalasztva: ";
+    cout << "\nKerem irja be a valasztott allat nevet, evet, honapot es napot szokozokkel elvalasztva: ";
     cin >> nev >> ev >> honap >> nap >> ora;
     ifstream inputFile("AllatFoglalt.txt");
     ofstream outPutFile("temp.txt", ios::app);
@@ -153,22 +166,22 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas()
         outPutFile.close();
         rename("temp.txt", "AllatFoglalt.txt");
     }
-    cout << "Idopont lefoglalva." << endl;
+    cout << "Idopont sikeresen lefoglalva." << endl;
 }
 
-void RegisztraltFelhasznalo::kervenyLeadas(const string &felhasznalonev)
+void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev)
 {
-    kervenyek uj("","");
+    Kervenyek uj("", "");
     ofstream outPutFile("kervenyek.txt", ios::app);
     cout << "Mi a kerveny targya?: ";
     cin >> uj.kervenyTargy;
     cout << "Mi a kerveny szovege? A szokozok helyett alulvonast hasznaljon (_) :";
     cin >> uj.kerveny;
 
-    if(outPutFile.is_open()){
-            string targy, kerveny, nev;
-            bool elfogadva=0;
-            outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << elfogadva << endl;
+    if (outPutFile.is_open()) {
+        string targy, kerveny, nev;
+        bool elfogadva = 0;
+        outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << elfogadva << endl;
     }
     outPutFile.close();
     cout << "Kerveny leadva." << endl;
