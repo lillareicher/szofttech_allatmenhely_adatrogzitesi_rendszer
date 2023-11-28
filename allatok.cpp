@@ -3,46 +3,74 @@
 
 
 
-string Allatok::getNev() const {
-	return nev;
-};
-
-void Allatok::setNev(string& ujnev) {
-	nev = ujnev;
-}
-
-unsigned int Allatok::getKor() const {
-	return kor;
-}
-
-void Allatok::setKor(unsigned int ujkor) {
-	kor = ujkor;
-
-}
-
-string Allatok::getNem() const {
-	return nem;
-}
-
-void Allatok::setNem(string& ujnem) {
-	nem = ujnem;
-}
-
-Rang Allatok::getKezelhetoseg() const
+Allatok::Allatok(const string& _nev, int _kor, const string& _nem, const string& _kezelhetoseg, const string& _egeszsegugyiAllapot) :
+    nev(_nev), kor(_kor), nem(_nem), kezelhetoseg(_kezelhetoseg), egeszsegugyiAllapot(_egeszsegugyiAllapot)
 {
-	return kezelhetoseg;
+
 }
 
-void Allatok::setKezelhetoseg(const Rang &k)
+
+
+void Allatok::addAllatEgyenleg(const string& allatnev, int ertek)
 {
+    ifstream inputFile("allatok.txt");
+    ofstream outPutFile("temp.txt", ios::app);
+
+    if (outPutFile.is_open() && inputFile.is_open()) {
+        while (!inputFile.eof()) {
+            string nev, nem, allapot;
+            int eletkor, allatrang, allatEgyenleg;
+            inputFile >> nev >> eletkor >> nem >> allatrang >> allapot >> allatEgyenleg;
+            if (nev != "") {
+                if (allatnev == nev) {
+                    outPutFile << nev << " " << eletkor << " " << nem << " " << allatrang << " " << allapot << " " << allatEgyenleg + ertek << endl;
+                }
+                else {
+                    outPutFile << nev << " " << eletkor << " " << nem << " " << allatrang << " " << allapot << " " << allatEgyenleg << endl;
+                }
+            }
+
+        }
+        inputFile.close();
+        remove("allatok.txt");
+        outPutFile.close();
+        rename("temp.txt", "allatok.txt");
+    }
 }
 
+bool Allatok::allatVan(const string& allat)
+{
+    bool talalt = 0;
+    ifstream inputFile("allatok.txt");
 
-
-string Allatok::getEgeszsegugyiAllapot() const {
-	return egeszsegugyiAllapot;
+    if (inputFile.is_open()) {
+        while (!inputFile.eof()) {
+            string nev, nem, allapot;
+            int eletkor, allatrang, allatEgyenleg;
+            inputFile >> nev >> eletkor >> nem >> allatrang >> allapot >> allatEgyenleg;
+            if (nev == allat) {
+                talalt = 1;
+            }
+        }
+        inputFile.close();
+    }
+    return talalt;
 }
 
-void Allatok::setEgeszsegugyiAllapot(string& ujallapot) {
-	egeszsegugyiAllapot = ujallapot;
+int Allatok::getAllatRang(const string& allatnev)
+{
+    ifstream inputFile("allatok.txt");
+    int allatr = -1;
+    if (inputFile.is_open()) {
+        while (!inputFile.eof()) {
+            string nev, nem, allapot;
+            int eletkor, allatrang, allatEgyenleg;
+            inputFile >> nev >> eletkor >> nem >> allatrang >> allapot >> allatEgyenleg;
+            if (nev == allatnev) {
+                allatr = allatrang;
+            }
+        }
+        inputFile.close();
+    }
+    return allatr;
 }

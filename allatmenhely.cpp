@@ -80,15 +80,41 @@ string AllatMenhely::belepes()
     }
     if (AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)) {
         cout << "\nBejelentkezes sikeres! Udv, " << felhasznalonev << "!" << endl;
+        _getch();
         return felhasznalonev;
+        system("cls");
+
     }
-    else {
+    if(!(AllatMenhely::validBejelentkezes(felhasznalonev, jelszo)))
+    {
         cout << "\nBejelentkezes sikertelen. Hibas felhasznalonev vagy jelszo.\n" << endl;
+        _getch();
+        system("cls");
+
     }
     return "";
 }
 
+//bool AllatMenhely::letezikFelhasznalo()
+//{
+//    ifstream inputFile("felhasznalok.txt");
+//    if (inputFile.is_open())
+//    {
+//        while (!inputFile.eof())
+//        {
+//            string nev = "";
+//            string jelszo;
+//            int szerep, rang, egyenleg, menhelye, rangSzamlalo;
+//            bool figyelmeztetes;
+//            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
+//            for(int i=0; i<)
+//        }
+//    }
+//}
 
-void AllatMenhely::kijelentkezes() {
-    
+
+
+void AllatMenhely::kijelentkezes() 
+{
+    system("cls");
 }

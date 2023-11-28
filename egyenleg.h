@@ -14,6 +14,7 @@ public:
     void setEgyenleg(unsigned ujegyenleg);
     static int getFelhasznaloEgyenleg(const string& felhasznalonev);
     static void setFelhasznaloEgyenleg(const string& felhasznalonev, int ertek);
+
 };
 
 #endif // EGYENLEG_H

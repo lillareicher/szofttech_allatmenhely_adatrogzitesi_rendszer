@@ -57,7 +57,7 @@ void Ertesites::ertesites(const string& nev, const string& targy, const string &
 
 	if (outputFile.is_open())
 	{
-		outputFile << nev << targy << " " << nev << " " << ertesites << endl;
+		outputFile << nev << " " << targy << " " << nev << " " << ertesites << endl;
 	}
 
 	outputFile.close();
@@ -83,3 +83,4 @@ void Ertesites::ertesitesLekeres(const string& fnev)
 		cout << "\nErtesitesek sikeres kilistazasa." << endl;
 	}
 }
+

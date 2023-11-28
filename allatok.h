@@ -1,26 +1,23 @@
 #pragma once
+
+#include "regisztraltfelhasznalo.h"
+
 #include <string>
-
-#include "rang.h"
-
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include "egyenleg.h"
 using namespace std;
 
 class Allatok {
-private:
-	string nev;
-	unsigned int kor;
-	string nem;
-	Rang kezelhetoseg;
-	string egeszsegugyiAllapot;
 public:
-	string getNev() const;
-	void setNev(string& ujnev);
-	unsigned int getKor() const;
-	void setKor(unsigned int ujkor);
-	string getNem() const;
-	void setNem(string& ujnem);
-	Rang getKezelhetoseg() const;
-	void setKezelhetoseg(const Rang &k);
-	string getEgeszsegugyiAllapot() const;
-	void setEgeszsegugyiAllapot(string& ujallapot);
+    Allatok(const string& _nev, int _kor, const string& _nem, const string& _kezelhetoseg, const string& _egeszsegugyiAllapot);
+    string nev;
+    int kor;
+    string nem;
+    string kezelhetoseg;
+    string egeszsegugyiAllapot;
+    static void addAllatEgyenleg(const string& allatnev, int ertek);
+    static bool allatVan(const string& allat);
+    static int getAllatRang(const string& allatnev);
 };

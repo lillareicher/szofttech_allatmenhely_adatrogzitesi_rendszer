@@ -24,7 +24,7 @@ void Adminisztrator::felhasznaloTorles()
             int szerep, rang, egyenleg, menhelye, rangSzamlalo;
             bool figyelmeztetes;
             inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
-            if (fnev != nev && nev!="")
+            if (fnev != nev && nev!="" && szerep!=0)
             {
                 outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg << " " << menhelye << " " << rangSzamlalo << " " << figyelmeztetes << endl;
             } 

@@ -19,8 +19,7 @@ void Szerepkor::setSzerepkorTipusok(int sz)
 		case 3: tipus = SzerepkorTipusok::Alkalmazott;
 			break;
 		default: tipus == SzerepkorTipusok::Vendeg;
-			break;
-		
+			break;	
 	}
 }
 
@@ -44,7 +43,7 @@ int Szerepkor::getSzerepkor(const string& felhasznalonev)
                 return szerep;
             }
         }
-		return 0;
+		return -1;
         inputFile.close();
     }
 }

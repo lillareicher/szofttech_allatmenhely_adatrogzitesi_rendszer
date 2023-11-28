@@ -2,19 +2,20 @@
 #define HIBA_H
 
 #include <iostream>
+#include <fstream>
 #include <ctime>
+#include <chrono>
+#include <iomanip>
+#define _CRT_NO_SECURE_WARNINGS
+
 
 using namespace std;
 
-class Hiba : public exception {
-    string leiras = "Hiba!";
-    time_t most = time(0);
-    char *datum= ctime(&most);
+class Hiba
+{
 public:
-    const char* what() const noexcept
-    {
-        return leiras.c_str();
-    }
+	static void folyositasiHiba();
+	static void folyositasiHibaleiras();
 };
 
 #endif
