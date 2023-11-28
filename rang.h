@@ -3,6 +3,8 @@
 
 #include "rangtipus.h"
 #include "hiba.h"
+#include <fstream>
+#include <sstream>
 
 class Rang
 {
@@ -14,6 +16,7 @@ public:
     void setRangID(int r);
     int getRangID() const;
     static RangTipus getRangTipus();
+    static void setRang(const string& felhasznalonev, int ujRang);
 };
 
 #endif // RANG_H
