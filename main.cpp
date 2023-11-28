@@ -73,8 +73,6 @@ int main() {
 
             }
 
-
-            //AllatMenhely::belepes();
             system("cls");
 
             switch (Szerepkor::getSzerepkor(felhasznalonev))
@@ -474,7 +472,11 @@ int main() {
                         cout << '*';
                     }
                 }
-                AllatMenhely::regisztracio(felhasznalonev, jelszo);
+                if (!(AllatMenhely::ellenorizFoglaltFelhasznalonev(felhasznalonev)))
+                {
+                    AllatMenhely::regisztracio(felhasznalonev, jelszo);
+                }
+                
                 _getch();
             }
 

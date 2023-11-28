@@ -14,5 +14,5 @@ public:
 	static void kijelentkezes();
 	static void visszaLep();
 	static string belepes();
-	static bool letezikFelhasznalo();
+	static bool ellenorizFoglaltFelhasznalonev(const string& felhasznalonev);
 };

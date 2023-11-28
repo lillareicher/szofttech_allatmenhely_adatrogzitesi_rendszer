@@ -95,23 +95,28 @@ string AllatMenhely::belepes()
     return "";
 }
 
-//bool AllatMenhely::letezikFelhasznalo()
-//{
-//    ifstream inputFile("felhasznalok.txt");
-//    if (inputFile.is_open())
-//    {
-//        while (!inputFile.eof())
-//        {
-//            string nev = "";
-//            string jelszo;
-//            int szerep, rang, egyenleg, menhelye, rangSzamlalo;
-//            bool figyelmeztetes;
-//            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
-//            for(int i=0; i<)
-//        }
-//    }
-//}
+bool AllatMenhely::ellenorizFoglaltFelhasznalonev(const string& felhasznalonev) {
+    ifstream file(FILE_PATH);
+    if (!file.is_open()) {
+        cerr << "A fajl nem nyithato meg: " << FILE_PATH << endl;
+        return true;
+    }
 
+    string felhasznaloNev;
+
+    cout << endl;
+
+    while (file >> felhasznaloNev) {
+        if (felhasznaloNev == felhasznalonev) {
+            cout << "Hiba: A felhasznalonev mar foglalt. Visszateres a menube.\n" << endl;
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
+    return false;
+}
 
 
 void AllatMenhely::kijelentkezes() 
