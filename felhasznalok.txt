@@ -1,3 +1,7 @@
-Admin admin 0 2 0 0
-Proba1 proba 1 0 0 0 0
-Proba2 proba 1 0 0 0 0
+Admin admin 0 2 0 50000 0 0
+Proba proba 1 0 15000 0 0 0
+Lilla proba 2 2 5000 50000 75 0
+Bence proba 3 0 0 0 0 0
+Csoves proba 1 0 0 0 0 0
+Andris proba 1 0 0 0 0 0
+Bianka bianka 3 2 40000 0 75 0
