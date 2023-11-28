@@ -10,131 +10,45 @@ RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, const string& _nev, c
     : Felhasznalo(_nev, _jelszo), rang(_rang) {
 }
 
-int RegisztraltFelhasznalo::getRangSzamlalo(const string &felhasznalonev)
-{
-        ifstream inputFile("felhasznalok.txt");
-        int rangsz = -1;
-        if (inputFile.is_open()) {
-            while (!inputFile.eof()) {
-                string nev, jelszo;
-                int szerep, rang, menhelye, rangSzamlalo, egy;
-                bool figyelmeztetes;
-                inputFile >> nev >> jelszo >> szerep >> rang >> egy >> menhelye >> rangSzamlalo >> figyelmeztetes;
-                if (felhasznalonev == nev) {
-                    rangsz = rangSzamlalo;
-                }
-            }
 
-        }
-        inputFile.close();
-        return rangsz;
+
+void RegisztraltFelhasznalo::adomanyozasMenhelynek(const string& felhasznalonev)
+{
+    int osszeg;
+    cout << "Mennyit szeretne adomanyozni a menhelynek? ";
+    cin >> osszeg;
+    if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= osszeg && Felhasznalo::egyUgyintezoVan() == true) {
+        int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) - osszeg;
+        Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
+        Felhasznalo::addUgyintezoEgyenleg(osszeg);
+
+        cout << "Sikeresen adomanyozott: " << osszeg << " osszeget a menhelynek!" << endl;
+        cout << "Fennmarado egyenlege: " << ujegyenleg << endl;
+    }
+    else {
+        cout << "Hiba! Nincs eleg egyenlege vagy nem lehet jelenleg adomanyozni." << endl;
+    }
 }
 
-void RegisztraltFelhasznalo::addRangSzamlalo(const string &felhasznalonev, int add)
+void RegisztraltFelhasznalo::virtualisOrokbefogas(const string& felhasznalonev)
 {
-//        Kezdő 0-25 Középhalado 25 - 75 Halado 75
-        ofstream outPutFile("temp.txt", ios::app);
-        ifstream inputFile("felhasznalok.txt");
-        int ujRangSzamlalo = getRangSzamlalo(felhasznalonev) + add;
-        int regiRangSzamlalo = getRangSzamlalo(felhasznalonev);
-        if(getRangSzamlalo(felhasznalonev)<75 && (add !=0) && ujRangSzamlalo <76){
-            if (outPutFile.is_open() && inputFile.is_open()) {
-                while (!inputFile.eof()) {
-                    string nev, jelszo;
-                    int szerep, rang, menhelye, rangSzamlalo, egy;
-                    bool figyelmeztetes;
-                    inputFile >> nev >> jelszo >> szerep >> rang >> egy >> menhelye >> rangSzamlalo >> figyelmeztetes;
-                    if (nev != "") {
-                        if (nev == felhasznalonev) {
-                            outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egy << " " << menhelye << " " << ujRangSzamlalo << " " << figyelmeztetes << endl;
-                        }
-                        else {
-                            outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egy << " " << menhelye << " " << rangSzamlalo << " " << figyelmeztetes << endl;
-                        }
-                    }
-
-                }
-                inputFile.close();
-                remove("felhasznalok.txt");
-                outPutFile.close();
-                rename("temp.txt", "felhasznalok.txt");
-                cout << "Sikeres a rangszamlalo novelese " << add << "-el, " << "az uj rangertek = " << ujRangSzamlalo << endl;
-                if(regiRangSzamlalo < 25 && ujRangSzamlalo <75 && ujRangSzamlalo > 24){
-                    Rang::setRang(felhasznalonev, 1);
-                    cout << felhasznalonev << " Szintet lepett! Az uj rangja Kozephalado." << endl;
-                }
-                if(ujRangSzamlalo == 75 && regiRangSzamlalo < 75){
-                    Rang::setRang(felhasznalonev, 2);
-                    cout << felhasznalonev << " Szintet lepett! Az uj rangja Halado." << endl;
-                }
-
-            }
-        }
-        else {
-            cout << "Sikertelen a rangszamlalo novelese" << endl;
-        }
-}
-
-void RegisztraltFelhasznalo::rangSzamlaloBeallitas(const string &felhasznalonev)
-{
-        ifstream inputFile("felhasznalok.txt");
-        int rangLeker = -1;
-        int rangSzamlal = -1;
-        if (inputFile.is_open()) {
-            while (!inputFile.eof()) {
-                string nev, jelszo;
-                int szerep, jrang, menhelye, rangSzamlalo, egy;
-                bool figyelmeztetes;
-                inputFile >> nev >> jelszo >> szerep >> jrang >> egy >> menhelye >> rangSzamlalo >> figyelmeztetes;
-                if (felhasznalonev == nev) {
-                    rangSzamlal = rangSzamlalo;
-                    rangLeker = jrang;
-                }
-            }
-
-        }
-        inputFile.close();
-        if(rangLeker != -1 && rangSzamlal !=-1){
-
-        }
-}
-
-void RegisztraltFelhasznalo::adomanyozasMenhelynek(const string &felhasznalonev)
-{
-        int osszeg;
-        cout << "Mennyit szeretne adomanyozni a menhelynek? ";
-        cin >> osszeg;
-        if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)>= osszeg && Felhasznalo::egyUgyintezoVan() == true){
-            int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)-osszeg;
-            Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
-            Felhasznalo::addUgyintezoEgyenleg(osszeg);
-
-            cout << "Sikeresen adomanyozott: " << osszeg << " osszeget a menhelynek!" << endl;
-            cout << "Fennmarado egyenlege: " << ujegyenleg << endl;
-        }
-        else {
-            cout << "Hiba! Nincs eleg egyenlege vagy nem lehet jelenleg adomanyozni." << endl;
-        }
-}
-
-void RegisztraltFelhasznalo::virtualisOrokbefogas(const string &felhasznalonev)
-{
-        RegisztraltFelhasznalo::allatokKilistaz();
-        string allatnev;
-        int osszeg;
-        cout << "Kinek szeretnel adomanyozni? ";
-        cin >> allatnev;
-        cout << "Mennyit szeretnel adomanyozni? ";
-        cin >> osszeg;
-        if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= osszeg && Allatok::allatVan(allatnev)){
-            int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)-osszeg;
-            Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
-            Allatok::addAllatEgyenleg(allatnev, osszeg);
-            cout << "Sikeresen adomanyozott: " << osszeg << " osszeget, " << allatnev << " - nak/nek." << endl;
-        }
-        else {
-            cout << "Hiba! Nincs eleg egyenlege vagy nincs ilyen allat a menhelyen." << endl;
-        }
+    cout << "A menhelyi allatok kilistazasa: " << endl;
+    RegisztraltFelhasznalo::allatokKilistaz();
+    string allatnev;
+    int osszeg;
+    cout << "Kinek szeretnel adomanyozni? ";
+    cin >> allatnev;
+    cout << "Mennyit szeretnel adomanyozni? ";
+    cin >> osszeg;
+    if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= osszeg && Allatok::allatVan(allatnev)) {
+        int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) - osszeg;
+        Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
+        Allatok::addAllatEgyenleg(allatnev, osszeg);
+        cout << "Sikeresen adomanyozott: " << osszeg << " osszeget, " << allatnev << " - nak/nek." << endl;
+    }
+    else {
+        cout << "Hiba! Nincs eleg egyenlege vagy nincs ilyen allat a menhelyen." << endl;
+    }
 
 }
 
@@ -174,7 +88,7 @@ void RegisztraltFelhasznalo::onkentesSzabadKilistaz()
 
 void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string& felhasznalonev)
 {
-    cout << "\nAz elerheto idopontok es tevekenysegek onkenteskedesre: " << endl;
+    cout << "Az elerheto idopontok es tevekenysegek onkenteskedesre: " << endl;
     onkentesSzabadKilistaz();
 
     cout << "\nMelyik idopontot szeretned lefoglalni? Ird be a datumot szokozokkel elvalasztva! (ev, honap, nap, ora): ";
@@ -209,14 +123,14 @@ void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string& felhasznalone
 
 void RegisztraltFelhasznalo::allatokKilistaz()
 {
-    ifstream inputFile("Allatok.txt");
+    ifstream inputFile("allatok.txt");
     if (inputFile.is_open()) {
         while (!inputFile.eof()) {
             string nev, nem, allapot;
             int eletkor, allatrang, allatEgyenleg;
             inputFile >> nev >> eletkor >> nem >> allatrang >> allapot >> allatEgyenleg;
-            if (nev != ""){
-            cout << "Nev: " << nev << ", Eletkor: " << eletkor << ", nem: " << nem << ", Kezelhetoseg: " << allatrang << ", Egeszsegugyi allapot: " << allapot << endl;
+            if (nev != "") {
+                cout << "Nev: " << nev << ", Eletkor: " << eletkor << ", nem: " << nem << ", Kezelhetoseg: " << allatrang << ", Egeszsegugyi allapot: " << allapot << endl;
             }
         }
     }
@@ -225,66 +139,93 @@ void RegisztraltFelhasznalo::allatokKilistaz()
 
 }
 
-void RegisztraltFelhasznalo::allatSzabadKilistaz()
+bool RegisztraltFelhasznalo::allatSzabadKilistaz(const string &felhasznalonev)
 {
+    int felhRang = getRang(felhasznalonev);
     string searchName = "";
     cout << "\nMelyik allathoz szeretne idopontot foglalni?: ";
     cin >> searchName;
-    ifstream inputFile("AllatFoglalt.txt");
+    bool megfelel = Allatok::getAllatRang(searchName)<=getRang(felhasznalonev);
+    if(megfelel){
+        ifstream inputFile("AllatFoglalt.txt");
 
-    if (inputFile.is_open()) {
-        while (!inputFile.eof()) {
-            string name;
-            int year, month, day, hour;
-            bool foglalt;
-            vector<int> numbers; //?
+        if (inputFile.is_open()) {
+            while (!inputFile.eof()) {
+                string name, felh;
+                int year, month, day, hour;
+                bool foglalt;
+                vector<int> numbers; //?
 
-            inputFile >> name >> year >> month >> day >> hour >> foglalt;
-            if (name == searchName && !foglalt) {
-                cout << "Szabad idopont talalva '" << searchName << "' -nak/nek: " << year << "-" << month << "-" << day << " " << hour << ":00" << endl;
+                inputFile >> name >> year >> month >> day >> hour >> foglalt >> felh;
+                if (name == searchName && !foglalt && felhRang >= Allatok::getAllatRang(name)) {
+                    cout << "Szabad idopont talalva '" << searchName << "' -nak/nek: " << year << "-" << month << "-" << day << " " << hour << ":00" << endl;
+                }
             }
+            inputFile.close();
         }
-        inputFile.close();
+    return megfelel;
     }
+    else {
+        cout << "Nem megfelelo a rangszint az allathoz." << endl;
+        return megfelel;
+    }
+
 }
 
-void RegisztraltFelhasznalo::allatIdoPontFoglalas()
+void RegisztraltFelhasznalo::allatIdoPontFoglalas(const string &felhasznalonev)
 {
-    cout << "\nA menhelyi allatok listaja: \n";
+    cout << "A menhelyi allatok listaja: \n";
     allatokKilistaz();
 
-    allatSzabadKilistaz();
+    if (allatSzabadKilistaz(felhasznalonev) == true){
 
     string nev;
     int ev, honap, nap, ora;
-
+    bool talalt = false;
     cout << "\nKerem irja be a valasztott allat nevet, evet, honapot es napot szokozokkel elvalasztva: ";
     cin >> nev >> ev >> honap >> nap >> ora;
-    ifstream inputFile("AllatFoglalt.txt");
-    ofstream outPutFile("temp.txt", ios::app);
+    if(Allatok::allatVan(nev) == true){
+        if(Allatok::getAllatRang(nev)<=getRang(felhasznalonev)){
+            ifstream inputFile("AllatFoglalt.txt");
+            ofstream outPutFile("temp.txt", ios::app);
 
-    if (outPutFile.is_open() && inputFile.is_open()) {
-        while (!inputFile.eof()) {
-            string _nev = "";
-            int year, month, day, hour;
-            bool foglalt;
-            inputFile >> _nev >> year >> month >> day >> hour >> foglalt;
-            if (_nev != "") {
-                if (nev == _nev && year == ev && month == honap && nap == day && ora == hour) {
-                    outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << 1 << endl;
+            if (outPutFile.is_open() && inputFile.is_open()) {
+                while (!inputFile.eof()) {
+                    string _nev = "", felh;
+                    int year, month, day, hour;
+                    bool foglalt;
+                    inputFile >> _nev >> year >> month >> day >> hour >> foglalt >> felh;
+                    if (_nev != "" ) {
+                        if (nev == _nev && year == ev && month == honap && nap == day && ora == hour) {
+                            talalt = true;
+                            outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << 1 << " " << felhasznalonev << endl;
+                        }
+                        else {
+                            outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << foglalt << " " << felh << endl;
+                        }
+                    }
+
                 }
-                else {
-                    outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << foglalt << endl;
-                }
+            inputFile.close();
+            remove("allatFoglalt.txt");
+            outPutFile.close();
+            rename("temp.txt", "allatFoglalt.txt");
             }
-
+            if(talalt == true){
+            cout << "Idopont sikeresen lefoglalva." << endl;
+            }
+            else{
+            cout << "Idopont/allatnev hibasan lett megadva. Nem sikerult lefoglalni." << endl;
+            }
         }
-        inputFile.close();
-        remove("AllatFoglalt.txt");
-        outPutFile.close();
-        rename("temp.txt", "AllatFoglalt.txt");
+        else {
+        cout << "Nem megfelelo a rangszint az idopont lefoglalasahoz" << endl;
+        }
+        }
+    else {
+        cout << "Nem talalhato ilyen allat." << endl;
     }
-    cout << "Idopont sikeresen lefoglalva." << endl;
+    }
 }
 
 void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev)

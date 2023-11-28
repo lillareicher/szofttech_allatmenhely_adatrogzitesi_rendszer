@@ -41,7 +41,7 @@ void Allatok::addAllatEgyenleg(const string &allatnev, int ertek)
 bool Allatok::allatVan(const string &allat)
 {
     bool talalt = 0;
-    ifstream inputFile("AllatFoglalt.txt");
+    ifstream inputFile("allatok.txt");
 
     if (inputFile.is_open()) {
         while (!inputFile.eof()) {
@@ -55,5 +55,23 @@ bool Allatok::allatVan(const string &allat)
         inputFile.close();
     }
     return talalt;
+}
+
+int Allatok::getAllatRang(const string &allatnev)
+{
+    ifstream inputFile("allatok.txt");
+    int allatr = -1;
+    if (inputFile.is_open()) {
+        while (!inputFile.eof()) {
+            string nev, nem, allapot;
+            int eletkor, allatrang, allatEgyenleg;
+            inputFile >> nev >> eletkor >> nem >> allatrang >> allapot >> allatEgyenleg;
+            if (nev == allatnev) {
+                allatr = allatrang;
+            }
+        }
+        inputFile.close();
+    }
+    return allatr;
 }
 

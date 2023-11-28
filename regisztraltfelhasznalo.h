@@ -18,14 +18,11 @@ public:
     static void onkentesSzabadKilistaz();
     static void onkentesIdopontFoglalas(const string& felhasznalonev);
     static void allatokKilistaz();
-    static void allatSzabadKilistaz();
-    static void allatIdoPontFoglalas();
+    static bool allatSzabadKilistaz(const string &felhasznalonev);
+    static void allatIdoPontFoglalas(const string &felhasznalonev);
     static void kervenyLeadas(const string& felhasznalonev);
-    static int getRangSzamlalo(const string &felhasznalonev);
-    static void addRangSzamlalo(const string &felhasznalonev, int add);
-    static void rangSzamlaloBeallitas(const string &felhasznalonev);
-    static void adomanyozasMenhelynek(const string &felhasznalonev);
-    static void virtualisOrokbefogas(const string &felhasznalonev);
+    static void adomanyozasMenhelynek(const string& felhasznalonev);
+    static void virtualisOrokbefogas(const string& felhasznalonev);
 
 
 };

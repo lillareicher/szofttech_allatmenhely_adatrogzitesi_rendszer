@@ -18,4 +18,5 @@ public:
     string egeszsegugyiAllapot;
     static void addAllatEgyenleg(const string& allatnev, int ertek);
     static bool allatVan(const string& allat);
+    static int getAllatRang(const string &allatnev);
 };
