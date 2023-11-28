@@ -8,10 +8,13 @@ using namespace std;
 
 class Ertesites
 {
-	static string uzenet;
+	static string uzi;
 public:
 	Ertesites();
 	static string getUzenet();
-	static void ertesit(const string &fnev, const string &uzenet);
+	static void uzenet();
+	static void uzenetLekeres(const string& fnev);
+	static void ertesites(const string &nev, const string& targy, const string &ertesites);
+	static void ertesitesLekeres(const string& fnev);
 };
 

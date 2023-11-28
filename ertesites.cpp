@@ -1,6 +1,6 @@
 #include "ertesites.h"
 
-string Ertesites::uzenet = "";
+string Ertesites::uzi = "";
 
 Ertesites::Ertesites()
 {
@@ -8,20 +8,78 @@ Ertesites::Ertesites()
 
 string Ertesites::getUzenet()
 {
-	return uzenet;
+	return uzi;
 }
 
-void Ertesites::ertesit(const string& fnev, const string &uzenet)
+void Ertesites::uzenet()
 {
-	ofstream ouputFile("uzenetek.txt");
-	if (ouputFile.is_open())
+	string nev="";
+	string uzen="";
+	cout << "Kerem adja meg a felhasznalo nevet aki szamara ertesitest szeretne kuldeni:\n";
+	cin >> nev;
+	cout << "Kerem adja meg a uzenet szoveget (a szavakat kotojellel valassza el): \n";
+	cin >> uzen;
+	
+	ofstream outputFile("uzenetek.txt", ios::app);
+
+	if (outputFile.is_open())
 	{
-		while (ouputFile.eof())
-		{
-			string fnev = "";
-			string uzenet = "";
-			ouputFile << fnev << " nevu felhasznalo reszere: " << uzenet << endl;
-		}
+		outputFile << nev << " " << uzen << endl;
 	}
-	ouputFile.close();
+	
+	outputFile.close();
+	cout << "Ertesites sikeres elkuldese" << endl;
+}
+
+void Ertesites::uzenetLekeres(const string& fnev)
+{
+	ifstream inputFile("uzenetek.txt");
+	if (inputFile.is_open())
+	{
+		while (!inputFile.eof())
+		{
+			string nev = "";
+			string uzenet = "";
+			inputFile >> nev >> uzenet;
+			if (nev == fnev)
+			{
+				cout << uzenet << endl;
+			}
+		}
+		inputFile.close();
+		cout << "\nUzenetek sikeres kilistazasa." << endl;
+	}
+}
+
+void Ertesites::ertesites(const string& nev, const string& targy, const string &ertesites)
+{
+	ofstream outputFile("ertesitesek.txt", ios::app);
+
+	if (outputFile.is_open())
+	{
+		outputFile << nev << targy << " " << nev << " " << ertesites << endl;
+	}
+
+	outputFile.close();
+	cout << "Ertesites sikeres elkuldese" << endl;
+
+}
+
+void Ertesites::ertesitesLekeres(const string& fnev)
+{
+	ifstream inputFile("ertesitesek.txt");
+	if (inputFile.is_open())
+	{
+		while (!inputFile.eof())
+		{
+			string targy, nev, ertesites;
+			inputFile >> targy >> nev >> ertesites;
+			if (nev == fnev)
+			{
+				cout << ertesites << endl;
+			}
+		}
+		inputFile.close();
+		cout << "\nErtesitesek sikeres kilistazasa." << endl;
+	}
 }
