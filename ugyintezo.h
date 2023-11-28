@@ -1,13 +1,22 @@
 #pragma once
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "felhasznalo.h"
 
-class Ugyintezo
+using namespace std;
+
+class Ugyintezo : public Felhasznalo
 {
-	int menhelyEgyenleg;
+	static int menhelyEgyenleg;
 public:
-	static bool kervenyElfogadas();
+	Ugyintezo() = default;
+	static void kervenyListazas();
+	static void kervenyElfogadas();
+	static void kervenyElutasitas();
 	void addIdopont();
-	int getMenhelyEgyenleg() const;
-	void setMenhelyEgyenleg(int egyenleg);
+	static void setMenhelyEgyenleg();
+	static void keszletFeltoltes();
 };
 
