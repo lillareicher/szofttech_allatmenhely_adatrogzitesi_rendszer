@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 class Felhasznalo {
@@ -16,4 +17,6 @@ public:
     void setJelszo(string& ujjelszo);
     bool getFigyelmeztetes() const;
     void setFigyelmeztetes(bool f);
+    static bool egyUgyintezoVan();
+    static void addUgyintezoEgyenleg(int ertek);
 };
