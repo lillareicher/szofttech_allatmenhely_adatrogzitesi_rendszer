@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Egyenleg.h"
 #include "kervenyek.h"
+#include "allatok.h"
 
 int RegisztraltFelhasznalo::rangSzamlalo = 0;
 
@@ -9,14 +10,46 @@ RegisztraltFelhasznalo::RegisztraltFelhasznalo(Rang _rang, const string& _nev, c
     : Felhasznalo(_nev, _jelszo), rang(_rang) {
 }
 
-int RegisztraltFelhasznalo::getRangSzamlalo()
+
+
+void RegisztraltFelhasznalo::adomanyozasMenhelynek(const string& felhasznalonev)
 {
-    return rangSzamlalo;
+    int osszeg;
+    cout << "Mennyit szeretne adomanyozni a menhelynek? ";
+    cin >> osszeg;
+    if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= osszeg && Felhasznalo::egyUgyintezoVan() == true) {
+        int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) - osszeg;
+        Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
+        Felhasznalo::addUgyintezoEgyenleg(osszeg);
+
+        cout << "Sikeresen adomanyozott: " << osszeg << " osszeget a menhelynek!" << endl;
+        cout << "Fennmarado egyenlege: " << ujegyenleg << endl;
+    }
+    else {
+        cout << "Hiba! Nincs eleg egyenlege vagy nem lehet jelenleg adomanyozni." << endl;
+    }
 }
 
-void RegisztraltFelhasznalo::setRangSzamlalo(int rsz)
+void RegisztraltFelhasznalo::virtualisOrokbefogas(const string& felhasznalonev)
 {
-    rangSzamlalo = rsz;
+    cout << "A menhelyi allatok kilistazasa: " << endl;
+    RegisztraltFelhasznalo::allatokKilistaz();
+    string allatnev;
+    int osszeg;
+    cout << "Kinek szeretnel adomanyozni? ";
+    cin >> allatnev;
+    cout << "Mennyit szeretnel adomanyozni? ";
+    cin >> osszeg;
+    if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= osszeg && Allatok::allatVan(allatnev)) {
+        int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) - osszeg;
+        Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
+        Allatok::addAllatEgyenleg(allatnev, osszeg);
+        cout << "Sikeresen adomanyozott: " << osszeg << " osszeget, " << allatnev << " - nak/nek." << endl;
+    }
+    else {
+        cout << "Hiba! Nincs eleg egyenlege vagy nincs ilyen allat a menhelyen." << endl;
+    }
+
 }
 
 void RegisztraltFelhasznalo::addFelhasznaloEgyenleg(const string& felhasznalonev)
@@ -55,7 +88,7 @@ void RegisztraltFelhasznalo::onkentesSzabadKilistaz()
 
 void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string& felhasznalonev)
 {
-    cout << "\nAz elerheto idopontok es tevekenysegek onkenteskedesre: " << endl;
+    cout << "Az elerheto idopontok es tevekenysegek onkenteskedesre: " << endl;
     onkentesSzabadKilistaz();
 
     cout << "\nMelyik idopontot szeretned lefoglalni? Ird be a datumot szokozokkel elvalasztva! (ev, honap, nap, ora): ";
@@ -90,16 +123,15 @@ void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string& felhasznalone
 
 void RegisztraltFelhasznalo::allatokKilistaz()
 {
-    ifstream inputFile("Allatok.txt");
-
-
-
+    ifstream inputFile("allatok.txt");
     if (inputFile.is_open()) {
         while (!inputFile.eof()) {
             string nev, nem, allapot;
-            int eletkor, allatrang;
-            inputFile >> nev >> eletkor >> nem >> allatrang >> allapot;
-            cout << "Nev: " << nev << ", Eletkor: " << eletkor << ", nem: " << nem << ", Kezelhetoseg: " << allatrang << ", Egeszsegugyi allapot: " << allapot << endl;
+            int eletkor, allatrang, allatEgyenleg;
+            inputFile >> nev >> eletkor >> nem >> allatrang >> allapot >> allatEgyenleg;
+            if (nev != "") {
+                cout << "Nev: " << nev << ", Eletkor: " << eletkor << ", nem: " << nem << ", Kezelhetoseg: " << allatrang << ", Egeszsegugyi allapot: " << allapot << endl;
+            }
         }
     }
 
@@ -132,7 +164,7 @@ void RegisztraltFelhasznalo::allatSzabadKilistaz()
 
 void RegisztraltFelhasznalo::allatIdoPontFoglalas()
 {
-    cout << "\nA menhelyi allatok listaja: \n";
+    cout << "A menhelyi allatok listaja: \n";
     allatokKilistaz();
 
     allatSzabadKilistaz();

@@ -21,8 +21,9 @@ public:
     static void allatSzabadKilistaz();
     static void allatIdoPontFoglalas();
     static void kervenyLeadas(const string& felhasznalonev);
-    static int getRangSzamlalo();
-    static void setRangSzamlalo(int rsz);
+    static void adomanyozasMenhelynek(const string& felhasznalonev);
+    static void virtualisOrokbefogas(const string& felhasznalonev);
+
 
 };
 
