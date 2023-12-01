@@ -27,7 +27,7 @@ void RegisztraltFelhasznalo::adomanyozasMenhelynek(const string& felhasznalonev)
         cout << "Sikeresen adomanyozott: " << osszeg << " Ft. osszeget a menhelynek!" << endl;
         cout << "Fennmarado egyenlege: " << ujegyenleg << " Ft." << endl;
     }
-    else if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) < osszeg)
+    else if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) < osszeg)
     {
         Hiba::folyositasiHiba();
         /*cout << "Hiba! Nincs eleg egyenlege, vagy jelenleg nem elerheto az adomanyozas funkcio." << endl;*/
@@ -46,25 +46,25 @@ void RegisztraltFelhasznalo::virtualisOrokbefogas(const string& felhasznalonev)
     string allatnev;
     cout << "\nMelyik allat reszere szeretne adomanyozni?: ";
     cin >> allatnev;
-    if(Allatok::allatVan(allatnev)){
-    cout << "\nMennyit szeretne adomanyozni?: ";
-    int osszeg = Hiba::intBekerHiba();
-    if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= osszeg && Allatok::allatVan(allatnev)) {
-        int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) - osszeg;
-        Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
-        Allatok::addAllatEgyenleg(allatnev, osszeg);
-        cout << "\nSikeresen adomanyozott: " << osszeg << " Ft. osszeget " << allatnev << " reszere." << endl;
-    }
-    else if(Egyenleg::getFelhasznaloEgyenleg(felhasznalonev)<osszeg)
-    {
-        Hiba::folyositasiHiba();
-        /*cout << "\nHiba! Nincs eleg egyenlege, vagy nincs ilyen allat a menhelyen." << endl;*/
-        Hiba::folyositasiHibaleiras();
-    }
-    else
-    {
-        cout << "\nHiba! Nincs ilyen allat a menhelyen." << endl;
-    }
+    if (Allatok::allatVan(allatnev)) {
+        cout << "\nMennyit szeretne adomanyozni?: ";
+        int osszeg = Hiba::intBekerHiba();
+        if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) >= osszeg && Allatok::allatVan(allatnev)) {
+            int ujegyenleg = Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) - osszeg;
+            Egyenleg::setFelhasznaloEgyenleg(felhasznalonev, ujegyenleg);
+            Allatok::addAllatEgyenleg(allatnev, osszeg);
+            cout << "\nSikeresen adomanyozott: " << osszeg << " Ft. osszeget " << allatnev << " reszere." << endl;
+        }
+        else if (Egyenleg::getFelhasznaloEgyenleg(felhasznalonev) < osszeg)
+        {
+            Hiba::folyositasiHiba();
+            /*cout << "\nHiba! Nincs eleg egyenlege, vagy nincs ilyen allat a menhelyen." << endl;*/
+            Hiba::folyositasiHibaleiras();
+        }
+        else
+        {
+            cout << "\nHiba! Nincs ilyen allat a menhelyen." << endl;
+        }
     }
     else cout << "Nincs ilyen allat a menhelyen!" << endl;
 }
@@ -117,7 +117,7 @@ void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string& felhasznalone
     string felhasznalo, tevekenyseg;
     ofstream outPutFile("temp.txt", ios::app);
     ifstream inputFile("Foglalasok.txt");
-    if(Idopontok::validDatum(ev, honap, nap, ora)){
+    if (Idopontok::validDatum(ev, honap, nap, ora)) {
         if (outPutFile.is_open() && inputFile.is_open()) {
             while (!inputFile.eof()) {
                 int _ev, _honap, _nap, _ora;
@@ -139,10 +139,10 @@ void RegisztraltFelhasznalo::onkentesIdopontFoglalas(const string& felhasznalone
             outPutFile.close();
             rename("temp.txt", "Foglalasok.txt");
         }
-        if(sikeresLefoglalas)
-        cout << "\nIdopont sikeresen lefoglalva!" << endl;
+        if (sikeresLefoglalas)
+            cout << "\nIdopont sikeresen lefoglalva!" << endl;
         else {
-        cout << "Sikertlen lefoglalas, nincs ilyen szabad idopont." << endl;
+            cout << "Sikertlen lefoglalas, nincs ilyen szabad idopont." << endl;
         }
     }
     else cout << "Sikertelen lefoglalas, nem valid datum!" << endl;
@@ -192,11 +192,11 @@ bool RegisztraltFelhasznalo::allatSzabadKilistaz(const string& felhasznalonev)
         }
         return megfelel;
     }
-    else if(Allatok::allatVan(searchName)){
+    else if (Allatok::allatVan(searchName)) {
         cout << "Nem megfelelo a rangszint az allathoz. Probalja meg rangszintjet novelni onkenteskedessel!" << endl;
         return megfelel;
     }
-    else if(!Allatok::allatVan(searchName)){
+    else if (!Allatok::allatVan(searchName)) {
         cout << "Nem letezik ilyen allat a menhelyen." << endl;
     }
     return megfelel;
@@ -261,19 +261,23 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas(const string& felhasznalonev)
     }
 }
 
-void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev)
+void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev) // 2023.12.01. modositva
 {
-    kervenyek uj("", "");
+
+    Kervenyek uj("", "");
     ofstream outPutFile("kervenyek.txt", ios::app);
     cout << "\nKerem adja meg a kerveny targyat: ";
     cin >> uj.kervenyTargy;
     cout << "\nKerem adja meg a kerveny szoveget (szokozok helyett alulvonast (_) hasznaljon): ";
     cin >> uj.kerveny;
 
-    if (outPutFile.is_open()) {
+    if (outPutFile.is_open())
+    {
+        int id = Kervenyek::getId();
+        int szamlalo = -1;
         string targy, kerveny, nev;
         bool elfogadva = 0;
-        outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << elfogadva << endl;
+        outPutFile << uj.id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << elfogadva << endl;
     }
     outPutFile.close();
     cout << "\nKerveny leadva." << endl;
