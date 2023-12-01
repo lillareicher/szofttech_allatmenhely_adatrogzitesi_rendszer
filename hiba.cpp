@@ -3,32 +3,51 @@
 
 void Hiba::folyositasiHiba()
 {
-	ofstream outputFile("folyositasihiba.txt");
+    ofstream outputFile("folyositasihiba.txt");
 
-	if (outputFile.is_open())
-	{
-		string msg = "Hibas_tranzakcio";
-		outputFile << msg << endl;
-	}
-	outputFile.close();
+    if (outputFile.is_open())
+    {
+        string msg = "Hibas_tranzakcio";
+        outputFile << msg << endl;
+    }
+    outputFile.close();
 }
 
 void Hiba::folyositasiHibaleiras()
 {
-	ifstream inputFile("folyositasihiba.txt");
+    ifstream inputFile("folyositasihiba.txt");
 
-	if (inputFile.is_open())
-	{
-		string msg;
-		time_t raw_time;
-		time(&raw_time);
-		struct tm local_time;
-		localtime_s(&local_time, &raw_time);
-		inputFile >> msg;
-		if (msg != "")
-		{
-			cout << "Rendszeruzenet: " << msg << ", idopont: " << put_time(&local_time, "%F %T") << endl;
-		}
-	}
-	inputFile.close();
+    if (inputFile.is_open())
+    {
+        string msg;
+        time_t raw_time;
+        time(&raw_time);
+        struct tm local_time;
+        localtime_s(&local_time, &raw_time);
+        inputFile >> msg;
+        if (msg != "")
+        {
+            cout << "Rendszeruzenet: " << msg << ", idopont: " << put_time(&local_time, "%F %T") << endl;
+        }
+    }
+    inputFile.close();
+}
+
+int Hiba::intBekerHiba()
+{
+    int input;
+    bool validInput = false;
+
+    while (!validInput) {
+        if (cin >> input) {
+            validInput = true;
+        }
+        else {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Nem szamot adott meg. Irjon be erteket." << endl;
+        }
+    }
+
+    return input;
 }

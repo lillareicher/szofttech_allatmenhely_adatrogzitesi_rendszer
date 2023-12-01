@@ -14,8 +14,9 @@ using namespace std;
 class Hiba
 {
 public:
-	static void folyositasiHiba();
-	static void folyositasiHibaleiras();
+    static void folyositasiHiba();
+    static void folyositasiHibaleiras();
+    static int intBekerHiba();
 };
 
 #endif
