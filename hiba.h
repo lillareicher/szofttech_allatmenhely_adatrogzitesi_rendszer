@@ -17,6 +17,7 @@ public:
     static void folyositasiHiba();
     static void folyositasiHibaleiras();
     static int intBekerHiba();
+    static string allatVanHiba();
 };
 
 #endif

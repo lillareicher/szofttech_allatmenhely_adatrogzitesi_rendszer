@@ -1,4 +1,5 @@
 #include "hiba.h"
+#include "allatok.h"
 #define _CRT_NO_SECURE_WARNINGS_GLOBAL
 
 void Hiba::folyositasiHiba()
@@ -45,9 +46,27 @@ int Hiba::intBekerHiba()
         else {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Nem szamot adott meg. Irjon be erteket: ";
+            cout << "Nem szamot adott meg. Irjon be erteket." << endl;
         }
     }
 
+    return input;
+}
+
+string Hiba::allatVanHiba()
+{
+    string input="";
+    bool van = false;
+
+    while(!Allatok::allatVan(input) || !van){
+        cin >> input;
+        if(Allatok::allatVan(input)){
+            van = true;
+        }
+        else {
+            cout << "Nincs ilyen allat a menhelyen. Irjon be egy uj nevet: ";
+            cin.clear();
+        }
+    }
     return input;
 }
