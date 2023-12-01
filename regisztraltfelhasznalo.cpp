@@ -43,9 +43,8 @@ void RegisztraltFelhasznalo::virtualisOrokbefogas(const string& felhasznalonev)
 {
     cout << "A menhelyi allatok kilistazasa: " << endl;
     RegisztraltFelhasznalo::allatokKilistaz();
-    string allatnev;
     cout << "\nMelyik allat reszere szeretne adomanyozni?: ";
-    cin >> allatnev;
+    string allatnev = Hiba::allatVanHiba();
     if (Allatok::allatVan(allatnev)) {
         cout << "\nMennyit szeretne adomanyozni?: ";
         int osszeg = Hiba::intBekerHiba();
@@ -166,13 +165,10 @@ void RegisztraltFelhasznalo::allatokKilistaz()
 
 }
 
-bool RegisztraltFelhasznalo::allatSzabadKilistaz(const string& felhasznalonev)
+bool RegisztraltFelhasznalo::allatSzabadKilistaz(const string& felhasznalonev, const string &searchName)
 {
     int felhRang = getRang(felhasznalonev);
-    string searchName = "";
-    cout << "\nMelyik allathoz szeretne idopontot foglalni?: ";
-    cin >> searchName;
-    bool megfelel = (Allatok::getAllatRang(searchName) <= getRang(felhasznalonev) && Allatok::allatVan(searchName));
+    bool megfelel = (Allatok::getAllatRang(searchName) <= getRang(felhasznalonev));
     if (megfelel) {
         ifstream inputFile("allatFoglalt.txt");
 
@@ -206,19 +202,20 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas(const string& felhasznalonev)
 {
     cout << "A menhelyi allatok listaja: \n";
     allatokKilistaz();
-
-    if (allatSzabadKilistaz(felhasznalonev) == true) {
+    cout << "\nMelyik allathoz szeretne idopontot foglalni?: ";
+    string allatnev = Hiba::allatVanHiba();
+    if (allatSzabadKilistaz(felhasznalonev, allatnev) == true) {
 
         string nev;
         bool talalt = false;
-        cout << "\nKerem irja be a valasztott allat nevet, evet, honapot es napot szokozokkel elvalasztva: ";
+        cout << "\nKerem irja be az evet, honapot es napot szokozokkel elvalasztva: ";
         cin >> nev;
         int ev = Hiba::intBekerHiba();
         int honap = Hiba::intBekerHiba();
         int nap = Hiba::intBekerHiba();
         int ora = Hiba::intBekerHiba();
-        if (Allatok::allatVan(nev) == true) {
-            if (Allatok::getAllatRang(nev) <= getRang(felhasznalonev)) {
+        if (Allatok::allatVan(allatnev) == true) {
+            if (Allatok::getAllatRang(allatnev) <= getRang(felhasznalonev)) {
                 ifstream inputFile("AllatFoglalt.txt");
                 ofstream outPutFile("temp.txt", ios::app);
 
@@ -229,7 +226,7 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas(const string& felhasznalonev)
                         bool foglalt;
                         inputFile >> _nev >> year >> month >> day >> hour >> foglalt >> felh;
                         if (_nev != "") {
-                            if (nev == _nev && year == ev && month == honap && nap == day && ora == hour) {
+                            if (allatnev == _nev && year == ev && month == honap && nap == day && ora == hour) {
                                 talalt = true;
                                 outPutFile << _nev << " " << year << " " << month << " " << day << " " << hour << " " << 1 << " " << felhasznalonev << endl;
                             }
@@ -263,7 +260,6 @@ void RegisztraltFelhasznalo::allatIdoPontFoglalas(const string& felhasznalonev)
 
 void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev) // 2023.12.01. modositva
 {
-
     Kervenyek uj("", "");
     ofstream outPutFile("kervenyek.txt", ios::app);
     cout << "\nKerem adja meg a kerveny targyat: ";
@@ -273,12 +269,8 @@ void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev) // 2023
 
     if (outPutFile.is_open())
     {
-        int id = Kervenyek::getId();
-        string targy = "";
-        string kerveny = ""; 
-        string nev = "";
-        bool elfogadva = 0;
-        outPutFile << uj.id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << elfogadva << endl;
+        int id = Kervenyek::getUtolsoID()+1;
+        outPutFile << id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << 0 << endl;
     }
     outPutFile.close();
     cout << "\nKerveny leadva." << endl;
