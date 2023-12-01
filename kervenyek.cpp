@@ -19,8 +19,10 @@ int Kervenyek::getUtolsoID()
             int id;
             string targy, kerveny, fnev;
             bool elfogadva;
-            inputFile >> id >> targy >> kerveny >> fnev >> elfogadva;
+            inputFile >> targy >> kerveny >> fnev >> elfogadva >> id;
+            if(targy!="" && id>utolso){
             utolso = id;
+            }
         }
         inputFile.close();
     }

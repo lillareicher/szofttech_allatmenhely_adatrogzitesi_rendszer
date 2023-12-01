@@ -270,7 +270,7 @@ void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev) // 2023
     if (outPutFile.is_open())
     {
         int id = Kervenyek::getUtolsoID()+1;
-        outPutFile << id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << 0 << endl;
+        outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << 0 << " " << id << endl;
     }
     outPutFile.close();
     cout << "\nKerveny leadva." << endl;

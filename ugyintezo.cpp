@@ -8,6 +8,7 @@ int Ugyintezo::menhelyEgyenleg = 0;
 void Ugyintezo::kervenyListazas()
 {
     Kervenyek uj("", "");
+    bool talalt = false;
     cout << "Kervenyek adatainak kilistazasa: " << endl;
     ifstream inputFile("kervenyek.txt");
     if (inputFile.is_open())
@@ -17,23 +18,25 @@ void Ugyintezo::kervenyListazas()
             int id;
             string fnev;
             bool elfogadva;
-            inputFile >> id >> uj.kervenyTargy >> uj.kerveny >> fnev >> elfogadva;
-            if (id>-1 /*&& fnev!=""*/)
+            inputFile >> uj.kervenyTargy >> uj.kerveny >> fnev >> elfogadva >> id;
+            if (id>-1 && fnev!="")
             {
-                cout << "A kerveny azonositoja: " << id << ", Kerveny targya: " << uj.kervenyTargy << ", Kerveny tartalma: " << uj.kerveny << ", Kervenyezo neve: " << fnev << "Elfogadasi statusz: " << elfogadva << endl;
-            }
-            else
-            {
-                cout << "Nem talalhato elerheto kerveny a rendszerben." << endl;
+                cout << "A kerveny azonositoja: " << id << ", Kerveny targya: " << uj.kervenyTargy << ", Kerveny tartalma: " << uj.kerveny << ", Kervenyezo neve: " << fnev << ", Elfogadasi statusz: " << elfogadva << endl;
+                talalt=true;
             }
         }
         inputFile.close();
+    }
+    if(!talalt)
+    {
+        cout << "Nem talalhato elerheto kerveny a rendszerben." << endl;
     }
 }
 
 void Ugyintezo::kervenyElfogadas()
 {
     kervenyListazas();
+    string nev="";
     bool sikerult = false;
     Kervenyek uj("", "");
     int azonositoElfogadas;
@@ -50,21 +53,26 @@ void Ugyintezo::kervenyElfogadas()
             int id;
             string fnev;
             bool elfogadva;
-            inputFile >> id >> uj.kervenyTargy >> uj.kerveny >> fnev >> elfogadva;
+            inputFile >> uj.kervenyTargy >> uj.kerveny >> fnev >> elfogadva >> id;
+            if(uj.kervenyTargy!="" && fnev != ""){
             if (id == azonositoElfogadas)
             {
-                outPutFile << id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << 1 << endl;
-                cout << "\nA kerveny sikeresen elfogadasra kerult." << endl;
-                Ertesites::ertesites(fnev, uj.kervenyTargy, "A_" + uj.kervenyTargy + "_targyu_kervenye_sikeresen_elfogadasra_kerult.");
+                outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << 1 << " " << id << endl;
                 sikerult = true;
+                nev = fnev;
             }
-            if (id != azonositoElfogadas)
+            if (id != azonositoElfogadas && uj.kervenyTargy != "")
             {
-                outPutFile << id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << elfogadva << endl;
+                outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << elfogadva << " " << id << endl;
+            }
             }
 
         }
         if(!sikerult) cout << "A kerveny nem kerult elfogadasra." << endl;
+        if(sikerult){
+            cout << "\nA kerveny sikeresen elfogadasra kerult." << endl;
+            Ertesites::ertesites(nev, uj.kervenyTargy, "A_" + uj.kervenyTargy + "_targyu_kervenye_sikeresen_elfogadasra_kerult.");
+        }
         inputFile.close();
         remove("kervenyek.txt");
         outPutFile.close();
@@ -77,9 +85,10 @@ void Ugyintezo::kervenyElutasitas()
 {
     kervenyListazas();
     bool sikerult = false;
+    string nev= "";
     Kervenyek uj("", "");
     int azonositoElutasitas;
-    cout << "Kerem adja meg az elfogadasra szant kerveny azonositojat (szam ertekkel): ";
+    cout << "Kerem adja meg az elutasitasra szant kerveny azonositojat (szam ertekkel): ";
     cin >> azonositoElutasitas;
 
     ifstream inputFile("kervenyek.txt");
@@ -92,21 +101,26 @@ void Ugyintezo::kervenyElutasitas()
             int id;
             string fnev;
             bool elfogadva;
-            inputFile >> id >> uj.kervenyTargy >> uj.kerveny >> fnev >> elfogadva;
-            if (id == azonositoElutasitas && elfogadva != 1)
+            inputFile >> uj.kervenyTargy >> uj.kerveny >> fnev >> elfogadva >> id;
+            if(uj.kervenyTargy!="" && fnev != ""){
+            if (id == azonositoElutasitas)
             {
-                outPutFile << id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << 0 << endl;
-                cout << "\nA kerveny elutasitasra kerult." << endl;
-                Ertesites::ertesites(fnev, uj.kervenyTargy, "A_" + uj.kervenyTargy + "_targyu_kervenye_elutasitasra_kerult.");
+                outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << 0 << " " << id << endl;
                 sikerult = true;
+                nev=fnev;
             }
             if (id != azonositoElutasitas)
             {
-                outPutFile << id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << elfogadva << endl;
+                outPutFile << uj.kervenyTargy << " " << uj.kerveny << " " << fnev << " " << elfogadva << " " << id << endl;
 
+            }
             }
         }
         if(!sikerult) cout << "A kerveny nem kerult elutasitasra." << endl;
+        if(sikerult){
+            cout << "\nA kerveny elutasitasra kerult." << endl;
+            Ertesites::ertesites(nev, uj.kervenyTargy, "A_" + uj.kervenyTargy + "_targyu_kervenye_elutasitasra_kerult.");
+        }
         inputFile.close();
         remove("kervenyek.txt");
         outPutFile.close();
