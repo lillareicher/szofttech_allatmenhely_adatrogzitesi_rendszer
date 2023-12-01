@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include "felhasznalo.h"
+#include "kervenyek.h"
 
 using namespace std;
 

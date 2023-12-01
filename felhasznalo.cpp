@@ -123,3 +123,4 @@ int Felhasznalo::getRang(const string& felhasznalonev)
     inputFile.close();
     return rangsz;
 }
+

@@ -1,4 +1,18 @@
-﻿  ertesites.cpp
+﻿  adminisztrator.cpp
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(162,36): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(167,36): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(172,36): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(177,36): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(186,34): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(191,34): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(196,34): warning C4553: '==': result of expression not used; did you intend '='?
+  kervenyek.cpp
   main.cpp
+  regisztraltfelhasznalo.cpp
+  ugyintezo.cpp
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\ugyintezo.cpp(17,17): warning C4101: 'id': unreferenced local variable
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\ugyintezo.cpp(49,17): warning C4101: 'id': unreferenced local variable
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\ugyintezo.cpp(92,17): warning C4101: 'id': unreferenced local variable
   Generating Code...
+D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\adminisztrator.cpp(141): warning C4715: 'Adminisztrator::letezoFelhasznalo': not all control paths return a value
   szofttech.vcxproj -> D:\Egyetem\5. félév\Szofttech\Szoftver\szofttech\x64\Debug\szofttech.exe

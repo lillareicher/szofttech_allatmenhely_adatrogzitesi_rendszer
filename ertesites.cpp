@@ -57,11 +57,11 @@ void Ertesites::ertesites(const string& nev, const string& targy, const string &
 
 	if (outputFile.is_open())
 	{
-		outputFile << nev << " " << targy << " " << nev << " " << ertesites << endl;
+		outputFile << nev << " " << targy << " " << ertesites << endl;
 	}
 
 	outputFile.close();
-	cout << "Ertesites sikeres elkuldese" << endl;
+	cout << "\nErtesites sikeresen elkuldve!" << endl;
 
 }
 
@@ -72,8 +72,10 @@ void Ertesites::ertesitesLekeres(const string& fnev)
 	{
 		while (!inputFile.eof())
 		{
-			string targy, nev, ertesites;
-			inputFile >> targy >> nev >> ertesites;
+			string nev = "";
+			string targy = "";
+			string ertesites = "";
+			inputFile >> nev >> targy >> ertesites;
 			if (nev == fnev)
 			{
 				cout << ertesites << endl;

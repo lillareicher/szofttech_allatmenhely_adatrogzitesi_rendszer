@@ -213,6 +213,7 @@ int main() {
                     {
                         system("cls");
                         RegisztraltFelhasznalo::kervenyLeadas(felhasznalonev);
+                        _getch();
                     }
 
                     if (valasztas == '6')
@@ -257,9 +258,10 @@ int main() {
                 cout << "4. Keszletfeltoltes kezdemenyezese\n";
                 cout << "5. Uzenetek megtekintese\n";
                 cout << "6. Ertesitesek megtekintese\n";
-                cout << "7. Kerveny elfogadasa\n";
-                cout << "8. Kerveny elutasitasa\n";
-                cout << "9. Kijelentkezes\n";
+                cout << "7. Kervenyek listazasa\n";
+                cout << "8. Kerveny elfogadasa\n";
+                cout << "9. Kerveny elutasitasa\n";
+                cout << "10. Kijelentkezes\n";
                 cin >> valasztas;
                 cout << endl;
 
@@ -346,18 +348,25 @@ int main() {
                 if (valasztas == '7')
                 {
                     system("cls");
-                    Ugyintezo::kervenyElfogadas();
+                    Ugyintezo::kervenyListazas();
                     _getch();
                 }
 
                 if (valasztas == '8')
                 {
                     system("cls");
-                    Ugyintezo::kervenyElutasitas();
+                    Ugyintezo::kervenyElfogadas();
                     _getch();
                 }
 
                 if (valasztas == '9')
+                {
+                    system("cls");
+                    Ugyintezo::kervenyElutasitas();
+                    _getch();
+                }
+
+                if (valasztas == '10')
                 {
                     vege = true;
                     AllatMenhely::kijelentkezes();

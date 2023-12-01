@@ -45,7 +45,7 @@ int Hiba::intBekerHiba()
         else {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Nem szamot adott meg. Irjon be erteket." << endl;
+            cout << "Nem szamot adott meg. Irjon be erteket: ";
         }
     }
 

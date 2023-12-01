@@ -274,8 +274,9 @@ void RegisztraltFelhasznalo::kervenyLeadas(const string& felhasznalonev) // 2023
     if (outPutFile.is_open())
     {
         int id = Kervenyek::getId();
-        int szamlalo = -1;
-        string targy, kerveny, nev;
+        string targy = "";
+        string kerveny = ""; 
+        string nev = "";
         bool elfogadva = 0;
         outPutFile << uj.id << " " << uj.kervenyTargy << " " << uj.kerveny << " " << felhasznalonev << " " << elfogadva << endl;
     }
