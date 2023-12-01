@@ -1,25 +1,32 @@
 #include "adminisztrator.h"
 
 
-Adminisztrator::Adminisztrator(const string& _nev, int _szerepkorID, const string& _jelszo): nev(_nev), szerepkorID(_szerepkorID), jelszo(_jelszo)
+Adminisztrator::Adminisztrator(const string& _nev, int _szerepkorID, const string& _jelszo): nev(_nev), jelszo(_jelszo)
 {
 }
 
-void Adminisztrator::felhasznaloTorles(const string& felhasznalonev) 
+void Adminisztrator::felhasznaloTorles() 
 {
+    cout << "\nFelhasznalok listaja: " << endl;
+    felhasznaloListaz();
+
+    string fnev;
+    cout << "\nKerem adja meg a torolni kivant felhasznalo nevet: ";
+    cin >> fnev;
+
     ifstream inputFile("felhasznalok.txt");
     ofstream outPutFile("temp.txt", ios::app);
-
     if (outPutFile.is_open() && inputFile.is_open())
     {
         while (!inputFile.eof())
         {
             string nev, jelszo;
-            int szerep, rang, egyenleg, menhelye;
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye;
-            if (felhasznalonev != nev && nev!="")
+            int szerep, rang, egyenleg, menhelye, rangSzamlalo;
+            bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
+            if (fnev != nev && nev!="" && szerep!=0)
             {
-                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg << " " << menhelye << endl;
+                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg << " " << menhelye << " " << rangSzamlalo << " " << figyelmeztetes << endl;
             } 
         }
         
@@ -29,7 +36,7 @@ void Adminisztrator::felhasznaloTorles(const string& felhasznalonev)
         rename("temp.txt", "felhasznalok.txt");
     }
 
-    if (letezoFelhasznalo(felhasznalonev))
+    if (letezoFelhasznalo(fnev))
     {
         cout << "Sikeres torles." << endl;
     }
@@ -51,16 +58,17 @@ void Adminisztrator::rangAdas(const string &felhasznalonev, int ertek)
         {
             string nev = "";
             string jelszo;
-            int szerep, rang, egyenleg, menhelye;
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye;
+            int szerep, rang, egyenleg, menhelye, rangSzamlalo;
+            bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
 
             if (nev == felhasznalonev && ertek!= rang && ertek>=0)
             {
-                outPutFile << nev << " " << jelszo << " " << szerep << " " << ertek << " " << egyenleg << " " << menhelye << endl;
+                outPutFile << nev << " " << jelszo << " " << szerep << " " << ertek << " " << egyenleg << " " << menhelye << " " << rangSzamlalo << " " << figyelmeztetes << endl;
             }
             else if(nev!="")
             {
-                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg << " " << menhelye << endl;
+                outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg << " " << menhelye << " " << rangSzamlalo << " " << figyelmeztetes << endl;
             }
             
         }
@@ -81,8 +89,32 @@ void Adminisztrator::rangAdas(const string &felhasznalonev, int ertek)
 }
     
 
-void Adminisztrator::kervenyFelulvizsgalat()
+void Adminisztrator::kervenyFelulvizsgalat(const string& targy)
 {
+    ifstream inputFile("kervenyek.txt");
+    if (inputFile.is_open())
+    {
+        while (!inputFile.eof())
+        {
+            string targy, kerveny;
+            string nev = "";
+            inputFile >> targy >> kerveny >> nev;
+            if (nev != "" && targy != "" && kerveny != "")
+            {
+                cout << "A kerveny formatuma helyes, tovabbkuldve." << endl;
+            }
+            if(nev=="" && targy != "" && kerveny == "")
+            {
+                cout << "A kerveny hibas, elutasitva." << endl;
+            }
+            if(targy=="")
+            {
+                cout << "A keresett kerveny nem talalhato, elutasitva." << endl;
+            }
+        }
+        
+        inputFile.close();
+    }
 }
 
 bool Adminisztrator::letezoFelhasznalo(const string& felhasznalonev)
@@ -94,8 +126,9 @@ bool Adminisztrator::letezoFelhasznalo(const string& felhasznalonev)
         {
             string nev = "";
             string jelszo;
-            int szerep, rang, egyenleg, menhelye;
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye;
+            int szerep, rang, egyenleg, menhelye, rangSzamlalo;
+            bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
 
             if (nev == felhasznalonev)
             {
@@ -118,8 +151,9 @@ void Adminisztrator::felhasznaloListaz()
         {
             string nev = "";
             string jelszo;
-            int szerep, rang, egyenleg, menhelye;
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye;
+            int szerep, rang, egyenleg, menhelye, rangSzamlalo;
+            bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
             if(nev!="")
                 {
                 cout << "Felhasznalonev: " << nev << ", Szerep: ";
@@ -165,16 +199,20 @@ void Adminisztrator::felhasznaloListaz()
                         break;
                     }
                 }
-                cout << "Egyenleg: " << egyenleg << " Ft." << endl;
+                cout << "Egyenleg: " << egyenleg << " Ft., " << "Rang szamlalo: " << rangSzamlalo;
+                if (figyelmeztetes)
+                {
+                    cout << " , Figyelmeztetes: van" << endl;
+                }
+                else
+                {
+                    cout << " , Figyelmeztetes: nincs" << endl;
+                }
             }
 
         }
         inputFile.close();
         
-    }
-    else
-    {
-        cout << "Sikertelen listazas" << endl;
     }
 
 }

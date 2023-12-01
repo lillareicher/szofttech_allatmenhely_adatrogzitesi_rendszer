@@ -1,3 +1,6 @@
-Admin admin 0 2 0 0
-Proba1 proba 1 0 0 0 0
-Proba2 proba 1 0 0 0 0
+Admin admin 0 2 0 0 0 0
+Proba proba 1 2 38000 0 75 0
+Lilla proba 2 2 0 10000 75 0
+Bence proba 3 0 0 0 0 0
+Bianka proba 3 2 0 0 75 0
+Anya proba 1 2 0 0 0 0

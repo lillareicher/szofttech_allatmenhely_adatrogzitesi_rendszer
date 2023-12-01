@@ -2,7 +2,7 @@
 
 SzerepkorTipusok Szerepkor::tipus = SzerepkorTipusok::Regisztralt_Felhasznalo;
 
-Szerepkor::Szerepkor(int _ID): ID(_ID)
+Szerepkor::Szerepkor()
 {
 }
 
@@ -18,7 +18,8 @@ void Szerepkor::setSzerepkorTipusok(int sz)
 			break;
 		case 3: tipus = SzerepkorTipusok::Alkalmazott;
 			break;
-		default: throw 0;
+		default: tipus == SzerepkorTipusok::Vendeg;
+			break;	
 	}
 }
 
@@ -35,13 +36,14 @@ int Szerepkor::getSzerepkor(const string& felhasznalonev)
     if (inputFile.is_open()) {
         while (!inputFile.eof()) {
             string nev, jelszo;
-            int szerep, rang, egyenleg, menhelye;
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye;
+            int szerep, rang, egyenleg, menhelye, rangSzamlalo;
+			bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
             if (nev == felhasznalonev) {
                 return szerep;
             }
         }
-		return 0;
+		return -1;
         inputFile.close();
     }
 }

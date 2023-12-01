@@ -4,12 +4,12 @@
 #include <string>
 using namespace std;
 
-class kervenyek
+class Kervenyek
 {
-    public:
+public:   
+    Kervenyek(const string& _kerveny, const string& _kervenyTargy);
     string kerveny;
     string kervenyTargy;
-    kervenyek(const string& _kerveny, const string& _kervenyTargy);
 
 };
 
