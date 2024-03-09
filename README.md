@@ -1,5 +1,5 @@
-A projektet a szoftvertechnológia egyetemi tantárgy teljesítéséhez készítettük. Célunk egy egyedi, hasznos alapszintű kód megalkotása, aminek továbbfejlesztése akár karitatívan továbbadható 
-szabad felhasználásra. Reményeink szerint a jövőben megszerzett tudásunkkal képesek leszünk egy jól használható programot létrehozni belőle.
+A projektet szoftvertechnológia egyetemi tantárgy teljesítéséhez készítettük. Célunk egy használható alapkód megalkotása volt, aminek karitatív módon továbbfejlesztett verziója továbbadhatóvá válhat 
+szabad felhasználásra a jövőben. 
 
-The project was made for an university course called Software Technologies. The goal was to create a fairly unique, base code for charitable reasons. The main reason is helping with sorting data and
+The project was made for an university course called Software Technologies. The goal was to create a base code for charitable reasons. The main reason is helping with sorting data and
 organizing activites with ease. In the future with more acquired knowledge we will might be able to clear up the code to its final form. 
