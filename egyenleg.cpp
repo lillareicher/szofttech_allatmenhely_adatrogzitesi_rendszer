@@ -15,7 +15,7 @@ void Egyenleg::setEgyenleg(unsigned ujegyenleg)
     egyenleg = ujegyenleg;
 }
 
-void Egyenleg::setFelhasznaloEgyenleg(const string &felhasznalonev, unsigned int ertek)
+void Egyenleg::setFelhasznaloEgyenleg(const string& felhasznalonev, int ertek)
 {
 
     ofstream outPutFile("temp.txt", ios::app);
@@ -24,15 +24,16 @@ void Egyenleg::setFelhasznaloEgyenleg(const string &felhasznalonev, unsigned int
     if (outPutFile.is_open() && inputFile.is_open()) {
         while (!inputFile.eof()) {
             string nev, jelszo;
-            int szerep, rang, menhelye;
+            int szerep, rang, menhelye, rangSzamlalo;
             Egyenleg egyenleg(0);
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg.egyenleg >> menhelye;
+            bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg.egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
             if (nev != "") {
                 if (nev == felhasznalonev) {
-                    outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << ertek << " " << menhelye << endl;
+                    outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << ertek << " " << menhelye << " " << rangSzamlalo << " " << figyelmeztetes << endl;
                 }
                 else {
-                    outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg.egyenleg << " " << menhelye << endl;
+                    outPutFile << nev << " " << jelszo << " " << szerep << " " << rang << " " << egyenleg.egyenleg << " " << menhelye << " " << rangSzamlalo << " " << figyelmeztetes << endl;
                 }
             }
 
@@ -44,16 +45,38 @@ void Egyenleg::setFelhasznaloEgyenleg(const string &felhasznalonev, unsigned int
     }
 }
 
-int Egyenleg::getFelhasznaloEgyenleg(const string &felhasznalonev)
+int Egyenleg::getMenhelyEgyenleg()
 {
     ifstream inputFile("felhasznalok.txt");
     unsigned felhEgyenleg = -1;
     if (inputFile.is_open()) {
         while (!inputFile.eof()) {
             string nev, jelszo;
-            int szerep, rang, menhelye;
+            int szerep, rang, menhelye, rangSzamlalo;
             Egyenleg egyenleg(0);
-            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg.egyenleg >> menhelye;
+            bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg.egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
+            if (2 == szerep) {
+                felhEgyenleg = menhelye;
+            }
+        }
+
+    }
+    inputFile.close();
+    return felhEgyenleg;
+}
+
+int Egyenleg::getFelhasznaloEgyenleg(const string& felhasznalonev)
+{
+    ifstream inputFile("felhasznalok.txt");
+    unsigned felhEgyenleg = -1;
+    if (inputFile.is_open()) {
+        while (!inputFile.eof()) {
+            string nev, jelszo;
+            int szerep, rang, menhelye, rangSzamlalo;
+            Egyenleg egyenleg(0);
+            bool figyelmeztetes;
+            inputFile >> nev >> jelszo >> szerep >> rang >> egyenleg.egyenleg >> menhelye >> rangSzamlalo >> figyelmeztetes;
             if (felhasznalonev == nev) {
                 felhEgyenleg = egyenleg.egyenleg;
             }

@@ -10,11 +10,11 @@ class Egyenleg
     int egyenleg;
 public:
     Egyenleg(unsigned _egyenleg);
-    Egyenleg& operator+=(const Egyenleg& other);
     unsigned getEgyenleg() const;
     void setEgyenleg(unsigned ujegyenleg);
-    static int getFelhasznaloEgyenleg(const string &felhasznalonev);
-    static void setFelhasznaloEgyenleg(const string &felhasznalonev, unsigned ertek);
+    static int getFelhasznaloEgyenleg(const string& felhasznalonev);
+    static void setFelhasznaloEgyenleg(const string& felhasznalonev, int ertek);
+    static int getMenhelyEgyenleg();
 
 };
 

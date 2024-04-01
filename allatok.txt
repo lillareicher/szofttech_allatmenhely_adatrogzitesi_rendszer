@@ -1,0 +1,4 @@
+Marci 15 him 2 Serult_bal_lab 17000
+Buksi 12 him 1 Egeszseges 25000
+Lujzi 1 nosteny 2 Egeszseges 5000
+Panni 5 nosteny 0 Szivbeteg 12000

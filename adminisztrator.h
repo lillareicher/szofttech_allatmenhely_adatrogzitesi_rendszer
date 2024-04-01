@@ -1,26 +1,27 @@
 #ifndef ADMINISZTRATOR_H
 #define ADMINISZTRATOR_H
 
+#include "kervenyek.h"
+#include "rang.h"
+#include "felhasznalo.h"
+#include "regisztraltfelhasznalo.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "rang.h"
-
 
 using namespace std;
 
-class Adminisztrator
+class Adminisztrator : public Felhasznalo 
 {
-	string nev;
-	int szerepkorID;
-	string jelszo;
 public:
-	Adminisztrator(const string& _nev, int _szerepkorID, const string& _jelszo);
+	Adminisztrator();
 	static void felhasznaloTorles(const string& felhasznalonev);
 	static void rangAdas(const string &felhasznalonev, int ertek);
-	void kervenyFelulvizsgalat();
+	static void kervenyFelulvizsgalat(int testid);
 	static bool letezoFelhasznalo(const string& felhasznalonev);
 	static void felhasznaloListaz();
+	static void szerepkorAdas(const string& felhasznalonev, int ertek);
 };
 
 #endif
