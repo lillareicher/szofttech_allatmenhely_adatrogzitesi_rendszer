@@ -39,6 +39,33 @@
     <ClCompile Include="egyenleg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="idopontok.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="allatmenhely.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="felhasznalo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="regisztraltfelhasznalo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ugyintezo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="alkalmazott.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="allatok.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kervenyek.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ertesitesek.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adminisztrator.h">
@@ -60,6 +87,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="egyenleg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="idopontok.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="allatmenhely.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="felhasznalo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="regisztraltfelhasznalo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ugyintezo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="alkalmazott.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="allatok.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kervenyek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ertesitesek.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

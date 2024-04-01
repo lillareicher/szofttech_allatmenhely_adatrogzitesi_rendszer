@@ -128,22 +128,40 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="adminisztrator.cpp" />
+    <ClCompile Include="alkalmazott.cpp" />
+    <ClCompile Include="allatmenhely.cpp" />
+    <ClCompile Include="allatok.cpp" />
     <ClCompile Include="egyenleg.cpp" />
+    <ClCompile Include="ertesitesek.cpp" />
+    <ClCompile Include="felhasznalo.cpp" />
     <ClCompile Include="hiba.cpp" />
+    <ClCompile Include="idopontok.cpp" />
+    <ClCompile Include="kervenyek.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="rang.cpp" />
     <ClCompile Include="rangtipus.cpp" />
+    <ClCompile Include="regisztraltfelhasznalo.cpp" />
     <ClCompile Include="szerepkor.cpp" />
     <ClCompile Include="szerepkortipusok.cpp" />
+    <ClCompile Include="ugyintezo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adminisztrator.h" />
+    <ClInclude Include="alkalmazott.h" />
+    <ClInclude Include="allatmenhely.h" />
+    <ClInclude Include="allatok.h" />
     <ClInclude Include="egyenleg.h" />
+    <ClInclude Include="ertesitesek.h" />
+    <ClInclude Include="felhasznalo.h" />
     <ClInclude Include="hiba.h" />
+    <ClInclude Include="idopontok.h" />
+    <ClInclude Include="kervenyek.h" />
     <ClInclude Include="rang.h" />
     <ClInclude Include="rangtipus.h" />
+    <ClInclude Include="regisztraltfelhasznalo.h" />
     <ClInclude Include="szerepkor.h" />
     <ClInclude Include="szerepkortipusok.h" />
+    <ClInclude Include="ugyintezo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

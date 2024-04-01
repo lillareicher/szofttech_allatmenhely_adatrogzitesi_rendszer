@@ -2,16 +2,22 @@
 #define HIBA_H
 
 #include <iostream>
+#include <fstream>
+#include <ctime>
+#include <chrono>
+#include <iomanip>
+#define _CRT_NO_SECURE_WARNINGS
+
 
 using namespace std;
 
-class Hiba : public exception {
-    string msg = "Rendszerhiba";
+class Hiba
+{
 public:
-    const char* what() const noexcept
-    {
-        return msg.c_str();
-    }
+    static void folyositasiHiba();
+    static void folyositasiHibaleiras();
+    static int intBekerHiba();
+    static string allatVanHiba();
 };
 
 #endif
