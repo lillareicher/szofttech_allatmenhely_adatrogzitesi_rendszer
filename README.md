@@ -1,3 +1,3 @@
-A végleges verzió plusz funkcionalitással és javításokkal.
+Első leadásra elkészült verzió.
 
-The final version after debugging, also added new functionalities.
+Made for the first review.
